@@ -1,0 +1,28 @@
+/* ─── CSS VARIABLES (Design Tokens) ─────────────────────── */
+:root {
+  --color-teal-dark:  #1a6b7a;
+  --color-teal:       #2a8fa3;
+  --color-teal-light: #3ab4cc;
+  --color-teal-pale:  #e4f5f8;
+  --color-teal-glass: rgba(26, 107, 122, 0.08);
+  --color-yellow:     #f5c800;
+  --color-yellow-pale:#fffadc;
+  --color-white:      #ffffff;
+  --color-off-white:  #f7f9fa;
+  --color-gray-100:   #eef1f2;
+  --color-gray-200:   #d6dfe2;
+  --color-gray-400:   #8fa8af;
+  --color-gray-700:   #3a5a62;
+  --color-dark:       #0d2830;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  20px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 4px 24px rgba(26, 107, 122, 0.10);
+  --shadow-hover: 0 20px 50px rgba(26, 107, 122, 0.20);
+}

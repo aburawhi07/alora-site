@@ -1,0 +1,45 @@
+/* Navbar.css – layout & scrolled state transitions */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  height: 88px;
+  transition: all 0.3s ease;
+}
+
+.navbar--scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--color-gray-200);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar__cta {
+  background: var(--color-teal-dark);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 12px 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 18px rgba(26, 107, 122, 0.28);
+}
+
+.navbar__cta:hover {
+  background: var(--color-teal);
+  transform: translateY(-1px);
+}
