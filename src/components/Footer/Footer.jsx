@@ -28,7 +28,11 @@ export default function Footer({ setPage }) {
                   key={l.id}
                   onClick={() => {
                     if (l.id === "request") {
-                      setPage("request");
+                      setPage("home");
+                      setTimeout(() => {
+                        const el = document.getElementById("contact");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
                     } else {
                       setPage("home");
                       setTimeout(() => {

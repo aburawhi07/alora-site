@@ -11,9 +11,9 @@ export function SectionHeader({ tag, title, sub, dark = false, noMargin = false 
   const sc = dark ? "rgba(255,255,255,0.6)" : T.gray700;
   return (
     <div className="reveal" style={{ marginBottom: noMargin ? 0 : 48 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-        <div style={{ width: 24, height: 3, background: T.yellow, borderRadius: 2 }} />
-        <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: tc }}>{tag}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+        <div style={{ width: 40, height: 4, background: T.yellow, borderRadius: 2 }} />
+        <span style={{ fontSize: 25, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: tc }}>{tag}</span>
       </div>
       <h2 style={{ fontFamily: "Syne", fontSize: "clamp(26px,4vw,42px)", fontWeight: 800, color: hc, lineHeight: 1.2, marginBottom: 14, letterSpacing: -0.5 }}>{title}</h2>
       {sub && <p style={{ fontSize: 16, color: sc, maxWidth: 520, lineHeight: 1.75 }}>{sub}</p>}
@@ -26,12 +26,12 @@ function Marquee() {
   const items = ["طباعة رقمية", "تصميم جرافيك", "هوية بصرية", "لافتات", "بطاقات أعمال", "طباعة ملابس", "بوسترات", "شعارات"];
   const repeated = [...items, ...items];
   return (
-    <div style={{ background: T.tealDark, padding: "14px 0", overflow: "hidden", direction: "ltr" }}>
+    <div style={{ background: T.tealDark, padding: "16px 0", overflow: "hidden", direction: "ltr" }}>
       <div style={{ display: "flex", gap: 0, animation: "marquee 22s linear infinite", width: "max-content" }}>
         {repeated.map((t, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 28, padding: "0 28px", whiteSpace: "nowrap" }}>
-            <span style={{ fontFamily: "DM Sans", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>{t}</span>
-            <span style={{ color: T.yellow, fontSize: 14 }}>✦</span>
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 30, padding: "0 25px", whiteSpace: "nowrap" }}>
+            <span style={{ fontFamily: "DM Sans", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>{t}</span>
+            <span style={{ color: T.yellow, fontSize: 18 }}>✦</span>
           </div>
         ))}
       </div>
@@ -88,7 +88,10 @@ function ServiceCard({ s, i, setPage }) {
         boxShadow: hovered ? `0 20px 50px rgba(26,107,122,0.2)` : "none",
         animationDelay: `${i * 0.1}s`,
       }}
-      onClick={() => setPage("request")}
+      onClick={() => {
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }}
     >
       <div style={{ marginBottom: 18, display: "flex", alignItems: "center", justifyContent: "center", width: 56, height: 56, borderRadius: 14, background: hovered ? "rgba(255,255,255,0.15)" : T.tealPale, transition: "background 0.3s" }}>
         <SvcIcon type={s.iconType} color={hovered ? T.white : T.tealDark} />
@@ -298,7 +301,7 @@ function Process() {
   ];
   return (
     <section className="section" style={{ background: T.offWhite, direction: "rtl" }}>
-      <div className="section__inner--narrow">
+      <div className="section__inner">
         <SectionHeader tag="كيف نعمل" title="أربع خطوات بسيطة" sub="من الفكرة إلى المنتج النهائي بكل سلاسة." />
         <div className="process-grid">
           {/* connector line */}

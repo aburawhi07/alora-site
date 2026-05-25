@@ -109,7 +109,7 @@ export default function Navbar({ page, setPage }) {
       </div>
 
       <button
-        onClick={() => { setMenuOpen(false); setPage("request"); }}
+        onClick={() => handleNav("contact")}
         className="navbar__cta"
         aria-label="اطلب خدمة الآن"
       >
@@ -144,7 +144,7 @@ export default function Navbar({ page, setPage }) {
           </button>
         ))}
         <button
-          onClick={() => { setMenuOpen(false); setPage("request"); }}
+          onClick={() => handleNav("contact")}
           className="navbar__mobile-cta"
         >
           اطلب الآن
