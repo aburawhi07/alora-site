@@ -1,6 +1,7 @@
 import { useState } from "react";
 import T from "../utils/tokens";
 import useReveal from "../hooks/useReveal";
+import "./RequestPage.css";
 
 export default function RequestPage() {
   useReveal();
@@ -22,8 +23,8 @@ export default function RequestPage() {
   const sel = { ...inp, cursor: "pointer" };
 
   return (
-    <section style={{ padding: "120px 40px 80px", minHeight: "100vh", background: T.offWhite, direction: "rtl" }}>
-      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+    <section className="request-page" style={{ background: T.offWhite }}>
+      <div className="request-page__inner">
         <div className="reveal">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: T.yellowPale, border: `1.5px solid ${T.yellow}`, borderRadius: 50, padding: "5px 16px", marginBottom: 20 }}>
             <span style={{ fontSize: 12, fontWeight: 500, color: "#7a6000" }}>طلب خدمة جديدة</span>
@@ -52,7 +53,7 @@ export default function RequestPage() {
           </div>
 
           {/* Name & Phone */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+          <div className="request-form-grid" style={{ marginBottom: 16 }}>
             <div>
               <label style={{ fontSize: 12, color: T.gray700, marginBottom: 6, display: "block" }}>الاسم الكامل</label>
               <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="أدخل اسمك" style={inp}
@@ -66,7 +67,7 @@ export default function RequestPage() {
           </div>
 
           {/* Qty & Budget */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+          <div className="request-form-grid" style={{ marginBottom: 16 }}>
             <div>
               <label style={{ fontSize: 12, color: T.gray700, marginBottom: 6, display: "block" }}>الكمية</label>
               <select value={form.qty} onChange={e => setForm({ ...form, qty: e.target.value })} style={sel}

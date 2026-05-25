@@ -42,3 +42,25 @@
 .footer__link-btn:hover {
   color: var(--color-yellow);
 }
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer {
+    padding: 28px 20px;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+
+  .footer__link-btn {
+    text-align: center;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

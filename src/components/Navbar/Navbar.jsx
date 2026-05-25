@@ -20,6 +20,8 @@ export function Logo({ height = 38, dark = false }) {
 
 export default function Navbar({ page, setPage }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 24);
@@ -27,10 +29,30 @@ export default function Navbar({ page, setPage }) {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  /* Track which section is currently visible */
+  useEffect(() => {
+    if (page !== "home") return;
+    const sectionIds = ["contact", "why", "portfolio", "services"];
+    const onScroll = () => {
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 200) {
+          setActiveSection(id);
+          return;
+        }
+      }
+      setActiveSection("home");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [page]);
+
   const links = ["الرئيسية", "خدماتنا", "أعمالنا", "لماذا نحن", "تواصل"];
   const ids = ["home", "services", "portfolio", "why", "contact"];
 
   const handleNav = (id) => {
+    setMenuOpen(false);
     if (id === "home") {
       setPage("home");
       setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
@@ -48,8 +70,18 @@ export default function Navbar({ page, setPage }) {
     }
   };
 
+  const isActive = (id) => {
+    if (page === "request") return false;
+    return activeSection === id;
+  };
+
   return (
-    <nav className={`navbar ${scrolled ? "navbar--scrolled" : ""}`} dir="rtl">
+    <nav
+      className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
+      dir="rtl"
+      role="navigation"
+      aria-label="التنقل الرئيسي"
+    >
       <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={() => setPage("home")}>
         <Logo height={70} />
       </div>
@@ -60,15 +92,16 @@ export default function Navbar({ page, setPage }) {
           <button
             key={l}
             onClick={() => handleNav(ids[i])}
+            aria-label={`انتقل إلى ${l}`}
             style={{
-              background: page === ids[i] ? T.tealPale : "transparent",
-              color: page === ids[i] ? T.tealDark : T.gray700,
+              background: isActive(ids[i]) ? T.tealPale : "transparent",
+              color: isActive(ids[i]) ? T.tealDark : T.gray700,
               border: "none", borderRadius: 12, padding: "10px 22px",
-              fontFamily: "DM Sans", fontSize: 16, fontWeight: page === ids[i] ? 600 : 400,
+              fontFamily: "DM Sans", fontSize: 16, fontWeight: isActive(ids[i]) ? 600 : 400,
               cursor: "pointer", transition: "all 0.18s",
             }}
-            onMouseEnter={(e) => { if (page !== ids[i]) e.target.style.background = T.gray100; }}
-            onMouseLeave={(e) => { if (page !== ids[i]) e.target.style.background = "transparent"; }}
+            onMouseEnter={(e) => { if (!isActive(ids[i])) e.target.style.background = T.gray100; }}
+            onMouseLeave={(e) => { if (!isActive(ids[i])) e.target.style.background = "transparent"; }}
           >
             {l}
           </button>
@@ -76,11 +109,47 @@ export default function Navbar({ page, setPage }) {
       </div>
 
       <button
-        onClick={() => setPage("request")}
+        onClick={() => { setMenuOpen(false); setPage("request"); }}
         className="navbar__cta"
+        aria-label="اطلب خدمة الآن"
       >
         اطلب الآن
       </button>
+
+      {/* Hamburger button (mobile) */}
+      <button
+        className="navbar__hamburger"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+        aria-expanded={menuOpen}
+      >
+        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+      </button>
+
+      {/* Mobile drawer */}
+      <div className={`navbar__mobile ${menuOpen ? "navbar__mobile--open" : ""}`}>
+        {links.map((l, i) => (
+          <button
+            key={l}
+            onClick={() => handleNav(ids[i])}
+            className="navbar__mobile-link"
+            style={{
+              color: isActive(ids[i]) ? T.tealDark : T.gray700,
+              fontWeight: isActive(ids[i]) ? 600 : 400,
+            }}
+          >
+            {l}
+          </button>
+        ))}
+        <button
+          onClick={() => { setMenuOpen(false); setPage("request"); }}
+          className="navbar__mobile-cta"
+        >
+          اطلب الآن
+        </button>
+      </div>
     </nav>
   );
 }

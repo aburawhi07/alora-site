@@ -78,7 +78,7 @@ export default function Hero({ setPage }) {
             من الهوية البصرية إلى الطباعة الاحترافية — نجمع بين الإبداع والتقنية لنقدم منتجاً يستحق الفخر.
           </p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
+          <div className="hero__buttons" style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
             <button
               onClick={() => setPage("request")}
               style={{ background: T.tealDark, color: T.white, border: "none", borderRadius: 50, padding: "15px 36px", fontFamily: "DM Sans", fontSize: 16, fontWeight: 500, cursor: "pointer", boxShadow: `0 8px 28px rgba(26,107,122,0.3)`, transition: "all 0.2s" }}

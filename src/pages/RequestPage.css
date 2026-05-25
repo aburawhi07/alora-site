@@ -1,0 +1,33 @@
+/* ─── REQUEST PAGE RESPONSIVE ───────────────────────────── */
+.request-page {
+  padding: 120px 40px 80px;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.request-page__inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.request-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .request-page {
+    padding: 90px 20px 60px;
+  }
+
+  .request-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .request-page {
+    padding: 80px 16px 48px;
+  }
+}

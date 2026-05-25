@@ -1,4 +1,3 @@
-import logoImg from "../../assets/logo.png";
 import T from "../../utils/tokens";
 import { Logo } from "../Navbar/Navbar";
 import "./Footer.css";

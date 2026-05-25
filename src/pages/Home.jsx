@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import T from "../utils/tokens";
 import useReveal from "../hooks/useReveal";
 import Hero from "../components/Hero/Hero";
+import "./Home.css";
 
 /* ─── HELPER: SECTION HEADER ─────────────────────────────── */
 export function SectionHeader({ tag, title, sub, dark = false, noMargin = false }) {
@@ -107,10 +108,10 @@ function ServiceCard({ s, i, setPage }) {
 function Services({ setPage }) {
   useReveal();
   return (
-    <section id="services" style={{ padding: "100px 40px", background: T.offWhite, direction: "rtl" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <section id="services" className="section" style={{ background: T.offWhite, direction: "rtl" }}>
+      <div className="section__inner">
         <SectionHeader tag="خدماتنا" title="كل ما تحتاجه في مكان واحد" sub="من التصميم إلى التسليم — نغطي كل احتياجاتك التجارية والشخصية." />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))", gap: 20 }}>
+        <div className="services-grid">
           {SERVICES.map((s, i) => <ServiceCard key={i} s={s} i={i} setPage={setPage} />)}
         </div>
       </div>
@@ -200,11 +201,11 @@ function Portfolio() {
   }, [active]);
 
   return (
-    <section id="portfolio" style={{ padding: "100px 40px", background: T.white, direction: "rtl" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <section id="portfolio" className="section" style={{ background: T.white, direction: "rtl" }}>
+      <div className="section__inner">
         <SectionHeader tag="أعمالنا" title="معرض المشاريع المنجزة" sub="نفخر بتقديم أعمال تعكس مستوى الاحترافية والإبداع الذي نؤمن به." />
         {/* Filter */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 36, flexWrap: "wrap" }}>
+        <div className="portfolio-filters">
           {cats.map((c) => (
             <button key={c} onClick={() => setActive(c)} style={{ padding: "8px 20px", borderRadius: 50, border: `1.5px solid ${active === c ? T.tealDark : T.gray200}`, background: active === c ? T.tealDark : T.white, color: active === c ? T.white : T.gray700, fontFamily: "DM Sans", fontSize: 13, fontWeight: 500, cursor: "pointer", transition: "all 0.2s" }}>
               {c}
@@ -212,7 +213,7 @@ function Portfolio() {
           ))}
         </div>
         {/* Grid */}
-        <div ref={gridRef} style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 16 }}>
+        <div ref={gridRef} className="portfolio-grid">
           {filtered.map((p, i) => (
             <div key={p.title} className="reveal" style={{ borderRadius: 18, overflow: "hidden", border: `1px solid ${T.gray200}`, background: T.white, cursor: "pointer", transition: "all 0.3s", animationDelay: `${i * 0.08}s` }}
               onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = `0 16px 40px rgba(26,107,122,0.14)`; e.currentTarget.style.borderColor = T.teal; }}
@@ -273,10 +274,10 @@ function WhyCard({ w, i }) {
 function WhyUs() {
   useReveal();
   return (
-    <section id="why" style={{ padding: "100px 40px", background: T.tealDark, direction: "rtl" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <section id="why" className="section" style={{ background: T.tealDark, direction: "rtl" }}>
+      <div className="section__inner">
         <SectionHeader tag="لماذا نحن" title="نفرق بالجودة والسرعة" sub="نجمع بين الإبداع والتقنية والخدمة الممتازة لنقدم لك تجربة لا مثيل لها." dark />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 18 }}>
+        <div className="why-grid">
           {WHY.map((w, i) => (
             <WhyCard key={i} w={w} i={i} />
           ))}
@@ -296,10 +297,10 @@ function Process() {
     { n: "٤", label: "التسليم", desc: "نطبع ونسلم بأعلى جودة" },
   ];
   return (
-    <section style={{ padding: "100px 40px", background: T.offWhite, direction: "rtl" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    <section className="section" style={{ background: T.offWhite, direction: "rtl" }}>
+      <div className="section__inner--narrow">
         <SectionHeader tag="كيف نعمل" title="أربع خطوات بسيطة" sub="من الفكرة إلى المنتج النهائي بكل سلاسة." />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0, position: "relative" }}>
+        <div className="process-grid">
           {/* connector line */}
           <div style={{ position: "absolute", top: 32, right: "10%", left: "10%", height: 2, background: `linear-gradient(to left,${T.tealLight},${T.yellow})`, zIndex: 0, borderRadius: 1 }} />
           {steps.map((s, i) => (
@@ -380,9 +381,9 @@ function Contact() {
     { icon: "🕐", label: "ساعات العمل", val: "السبت – الخميس، 9ص – 9م" },
   ];
   return (
-    <section id="contact" style={{ padding: "100px 40px", background: T.white, direction: "rtl" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+    <section id="contact" className="section" style={{ background: T.white, direction: "rtl" }}>
+      <div className="section__inner">
+        <div className="contact-grid">
           <div className="reveal">
             <SectionHeader tag="تواصل معنا" title="هل لديك مشروع؟" sub="تواصل معنا وسنسعد بمساعدتك في تحقيق رؤيتك." noMargin />
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 32 }}>

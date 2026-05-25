@@ -27,3 +27,52 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 100px 28px 60px;
+  }
+
+  .hero__grid {
+    gap: 40px;
+  }
+
+  .hero__visual {
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 100px 20px 60px;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .hero__visual {
+    height: 300px;
+    order: -1;
+    transform: scale(0.85);
+  }
+
+  .hero__buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 90px 16px 48px;
+  }
+
+  .hero__visual {
+    height: 250px;
+    transform: scale(0.75);
+  }
+}
