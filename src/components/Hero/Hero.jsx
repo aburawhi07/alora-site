@@ -16,7 +16,7 @@ export function HeroVisual() {
         <div style={{ fontFamily: "Syne", fontSize: 18, fontWeight: 800, color: T.yellow }}>محمد الأحمد</div>
         <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginBottom: 12 }}>مدير تسويق</div>
         <div style={{ height: 1, background: "rgba(255,255,255,0.1)", marginBottom: 12 }} />
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)" }}>+970 599651585</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", direction: "ltr", textAlign: "right" }}>+972 59 965 1585</div>
       </div>
 
 

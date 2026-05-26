@@ -1,5 +1,6 @@
 import T from "../../utils/tokens";
 import { Logo } from "../Navbar/Navbar";
+import patternImg from "../../assets/logo_2.png";
 import "./Footer.css";
 
 export default function Footer({ setPage }) {
@@ -52,11 +53,44 @@ export default function Footer({ setPage }) {
           </div>
           <div>
             <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>تواصل معنا</div>
-            {[["📍", "نابلس، فلسطين"], ["📞", "+970 59 000 0000"], ["✉️", "info@aloragraphic.ps"]].map(([ic, v]) => (
-              <div key={v} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10, fontSize: 13 }}>
-                <span style={{ fontSize: 14 }}>{ic}</span><span style={{ color: "rgba(255,255,255,0.55)" }}>{v}</span>
-              </div>
-            ))}
+            {[
+              { ic: "📍", v: "عقابا، فلسطين", href: "https://maps.app.goo.gl/EFaxJN4bJMobaMWU6" },
+              { ic: "📞", v: "+972 59 965 1585", href: "tel:+972599651585" },
+              { ic: "✉️", v: "aloragraphic@gmail.com", href: "mailto:aloragraphic@gmail.com" }
+            ].map(item => {
+              const Tag = item.href ? "a" : "div";
+              const props = item.href ? {
+                href: item.href,
+                target: item.href.startsWith("http") ? "_blank" : undefined,
+                rel: item.href.startsWith("http") ? "noopener noreferrer" : undefined
+              } : {};
+              return (
+                <Tag
+                  key={item.v}
+                  {...props}
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    alignItems: "center",
+                    marginBottom: 10,
+                    fontSize: 13,
+                    textDecoration: "none",
+                    color: "rgba(255,255,255,0.55)",
+                    transition: "color 0.2s",
+                    cursor: item.href ? "pointer" : "default"
+                  }}
+                  onMouseEnter={e => {
+                    if (item.href) e.currentTarget.style.color = T.yellow;
+                  }}
+                  onMouseLeave={e => {
+                    if (item.href) e.currentTarget.style.color = "rgba(255,255,255,0.55)";
+                  }}
+                >
+                  <span style={{ fontSize: 14 }}>{item.ic}</span>
+                  <span style={{ direction: item.href && item.href.startsWith("tel:") ? "ltr" : "inherit" }}>{item.v}</span>
+                </Tag>
+              );
+            })}
           </div>
         </div>
         <div className="footer__bottom">
