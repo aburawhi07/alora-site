@@ -87,6 +87,20 @@
   .navbar {
     padding: 0 20px;
     height: 72px;
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: none;
+  }
+
+  /* When scrolled on mobile (no menu open), keep transparent */
+  .navbar.navbar--scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: none;
+  }
+
+  /* When menu is open, show white background */
+  .navbar.navbar--menu-open {
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(14px);
   }

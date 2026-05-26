@@ -77,7 +77,7 @@ export default function Navbar({ page, setPage }) {
 
   return (
     <nav
-      className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
+      className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${menuOpen ? "navbar--menu-open" : ""}`}
       dir="rtl"
       role="navigation"
       aria-label="التنقل الرئيسي"
