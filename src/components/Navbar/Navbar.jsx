@@ -76,60 +76,62 @@ export default function Navbar({ page, setPage }) {
   };
 
   return (
-    <nav
-      className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${menuOpen ? "navbar--menu-open" : ""}`}
-      dir="rtl"
-      role="navigation"
-      aria-label="التنقل الرئيسي"
-    >
-      <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={() => setPage("home")}>
-        <Logo height={70} />
-      </div>
-
-      {/* Desktop links */}
-      <div className="navbar__links">
-        {links.map((l, i) => (
-          <button
-            key={l}
-            onClick={() => handleNav(ids[i])}
-            aria-label={`انتقل إلى ${l}`}
-            style={{
-              background: isActive(ids[i]) ? T.tealPale : "transparent",
-              color: isActive(ids[i]) ? T.tealDark : T.gray700,
-              border: "none", borderRadius: 12, padding: "10px 22px",
-              fontFamily: "DM Sans", fontSize: 16, fontWeight: isActive(ids[i]) ? 600 : 400,
-              cursor: "pointer", transition: "all 0.18s",
-            }}
-            onMouseEnter={(e) => { if (!isActive(ids[i])) e.target.style.background = T.gray100; }}
-            onMouseLeave={(e) => { if (!isActive(ids[i])) e.target.style.background = "transparent"; }}
-          >
-            {l}
-          </button>
-        ))}
-      </div>
-
-      <button
-        onClick={() => handleNav("contact")}
-        className="navbar__cta"
-        aria-label="اطلب خدمة الآن"
+    <>
+      <nav
+        className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${menuOpen ? "navbar--menu-open" : ""}`}
+        dir="rtl"
+        role="navigation"
+        aria-label="التنقل الرئيسي"
       >
-        اطلب الآن
-      </button>
+        <div style={{ display: "flex", alignItems: "center", cursor: "pointer", position: "relative", zIndex: 110 }} onClick={() => setPage("home")}>
+          <Logo height={70} />
+        </div>
 
-      {/* Hamburger button (mobile) */}
-      <button
-        className="navbar__hamburger"
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-        aria-expanded={menuOpen}
-      >
-        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-        <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-      </button>
+        {/* Desktop links */}
+        <div className="navbar__links">
+          {links.map((l, i) => (
+            <button
+              key={l}
+              onClick={() => handleNav(ids[i])}
+              aria-label={`انتقل إلى ${l}`}
+              style={{
+                background: isActive(ids[i]) ? T.tealPale : "transparent",
+                color: isActive(ids[i]) ? T.tealDark : T.gray700,
+                border: "none", borderRadius: 12, padding: "10px 22px",
+                fontFamily: "DM Sans", fontSize: 16, fontWeight: isActive(ids[i]) ? 600 : 400,
+                cursor: "pointer", transition: "all 0.18s",
+              }}
+              onMouseEnter={(e) => { if (!isActive(ids[i])) e.target.style.background = T.gray100; }}
+              onMouseLeave={(e) => { if (!isActive(ids[i])) e.target.style.background = "transparent"; }}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
 
-      {/* Mobile drawer */}
-      <div className={`navbar__mobile ${menuOpen ? "navbar__mobile--open" : ""}`}>
+        <button
+          onClick={() => handleNav("contact")}
+          className="navbar__cta"
+          aria-label="اطلب خدمة الآن"
+        >
+          اطلب الآن
+        </button>
+
+        {/* Hamburger button (mobile) */}
+        <button
+          className="navbar__hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+          aria-expanded={menuOpen}
+        >
+          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
+        </button>
+      </nav>
+
+      {/* Mobile drawer – rendered outside nav so it covers the full screen */}
+      <div className={`navbar__mobile ${menuOpen ? "navbar__mobile--open" : ""}`} dir="rtl">
         {links.map((l, i) => (
           <button
             key={l}
@@ -150,6 +152,6 @@ export default function Navbar({ page, setPage }) {
           اطلب الآن
         </button>
       </div>
-    </nav>
+    </>
   );
 }

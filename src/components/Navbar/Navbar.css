@@ -99,10 +99,11 @@
     border-bottom: none;
   }
 
-  /* When menu is open, show white background */
+  /* When menu is open, show white background and stay above drawer */
   .navbar.navbar--menu-open {
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(14px);
+    z-index: 102;
   }
 
   .navbar__links {
@@ -129,7 +130,7 @@
     backdrop-filter: blur(20px);
     padding: 96px 28px 24px;
     gap: 8px;
-    z-index: 98;
+    z-index: 101;
     transform: translateY(-120%);
     opacity: 0;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
