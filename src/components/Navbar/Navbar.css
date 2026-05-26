@@ -87,6 +87,8 @@
   .navbar {
     padding: 0 20px;
     height: 72px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
   }
 
   .navbar__links {

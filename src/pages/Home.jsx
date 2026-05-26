@@ -123,6 +123,7 @@ function Services({ setPage }) {
 }
 
 /* ─── PORTFOLIO ──────────────────────────────────────────── */
+
 const PORTFOLIO = [
   { title: "هوية بصرية متكاملة", cat: "تصميم", bg: `linear-gradient(135deg,${T.tealPale},#b2dce4)`, mock: "identity" },
   { title: "بانر إعلاني 3×1 متر", cat: "طباعة", bg: `linear-gradient(135deg,${T.yellowPale},#fde68a)`, mock: "banner" },
@@ -304,15 +305,23 @@ function Process() {
       <div className="section__inner">
         <SectionHeader tag="كيف نعمل" title="أربع خطوات بسيطة" sub="من الفكرة إلى المنتج النهائي بكل سلاسة." />
         <div className="process-grid">
-          {/* connector line */}
-          <div style={{ position: "absolute", top: 32, right: "10%", left: "10%", height: 2, background: `linear-gradient(to left,${T.tealLight},${T.yellow})`, zIndex: 0, borderRadius: 1 }} />
+          {/* horizontal connector line (desktop) */}
+          <div className="process-connector--h" style={{ position: "absolute", top: 32, right: "10%", left: "10%", height: 2, background: `linear-gradient(to left,${T.tealLight},${T.yellow})`, zIndex: 0, borderRadius: 1 }} />
+          {/* vertical connector line (mobile) */}
+          <div className="process-connector--v" style={{ display: "none" }} />
           {steps.map((s, i) => (
-            <div key={i} className="reveal" style={{ textAlign: "center", padding: "0 12px", position: "relative", zIndex: 1, animationDelay: `${i * 0.1}s` }}>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: i === 0 ? T.tealDark : T.white, border: `2px solid ${i === 0 ? T.tealDark : T.gray200}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: "0 4px 18px rgba(0,0,0,0.07)" }}>
+            <div key={i} className="reveal process-step" style={{ textAlign: "center", padding: "0 12px", position: "relative", zIndex: 1, animationDelay: `${i * 0.1}s` }}>
+              <div className="process-step__circle" style={{ width: 56, height: 56, borderRadius: "50%", background: i === 0 ? T.tealDark : T.white, border: `2px solid ${i === 0 ? T.tealDark : T.gray200}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: "0 4px 18px rgba(0,0,0,0.07)" }}>
                 <span style={{ fontFamily: "Syne", fontSize: 20, fontWeight: 800, color: i === 0 ? T.yellow : T.tealDark }}>{s.n}</span>
               </div>
-              <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.dark, marginBottom: 6 }}>{s.label}</div>
-              <div style={{ fontSize: 12, color: T.gray700, lineHeight: 1.6 }}>{s.desc}</div>
+              {/* Desktop: inline labels */}
+              <div className="process-step__label-inline" style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.dark, marginBottom: 6 }}>{s.label}</div>
+              <div className="process-step__desc-inline" style={{ fontSize: 12, color: T.gray700, lineHeight: 1.6 }}>{s.desc}</div>
+              {/* Mobile: grouped text block */}
+              <div className="process-step__text">
+                <div style={{ fontFamily: "Syne", fontSize: 15, fontWeight: 700, color: T.dark, marginBottom: 4 }}>{s.label}</div>
+                <div style={{ fontSize: 12, color: T.gray700, lineHeight: 1.6 }}>{s.desc}</div>
+              </div>
             </div>
           ))}
         </div>
@@ -378,10 +387,45 @@ function ContactForm() {
 function Contact() {
   useReveal();
   const info = [
-    { icon: "📍", label: "الموقع", val: "عقابا، فلسطين", href: "https://maps.app.goo.gl/EFaxJN4bJMobaMWU6" },
-    { icon: "📞", label: "الهاتف", val: "+972 59 965 1585", href: "tel:+972599651585" },
-    { icon: "✉️", label: "البريد", val: "aloragraphic@gmail.com", href: "mailto:aloragraphic@gmail.com" },
-    { icon: "🕐", label: "ساعات العمل", val: "السبت – الخميس، 9ص – 9م" },
+    {
+      icon: (color) => (
+        <svg style={{ width: 20, height: 20 }} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+        </svg>
+      ),
+      label: "الموقع",
+      val: "عقابا، فلسطين",
+      href: "https://maps.app.goo.gl/EFaxJN4bJMobaMWU6"
+    },
+    {
+      icon: (color) => (
+        <svg style={{ width: 20, height: 20 }} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+      ),
+      label: "الهاتف",
+      val: "+972 59 965 1585",
+      href: "tel:+972599651585"
+    },
+    {
+      icon: (color) => (
+        <svg style={{ width: 20, height: 20 }} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+        </svg>
+      ),
+      label: "البريد",
+      val: "aloragraphic@gmail.com",
+      href: "mailto:aloragraphic@gmail.com"
+    },
+    {
+      icon: (color) => (
+        <svg style={{ width: 20, height: 20 }} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+      label: "ساعات العمل",
+      val: "السبت – الخميس، 9ص – 9م"
+    },
   ];
   return (
     <section id="contact" className="section" style={{ background: T.white, direction: "rtl" }}>
@@ -427,7 +471,7 @@ function Contact() {
                       }
                     }}
                   >
-                    <div style={{ width: 40, height: 40, borderRadius: 12, background: T.tealPale, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{it.icon}</div>
+                    <div style={{ width: 40, height: 40, borderRadius: 12, background: T.tealPale, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{it.icon(T.tealDark)}</div>
                     <div>
                       <div style={{ fontSize: 11, color: T.gray400, marginBottom: 1 }}>{it.label}</div>
                       <div style={{ fontSize: 14, fontWeight: 500, color: T.dark, direction: it.href && it.href.startsWith("tel:") ? "ltr" : "inherit", display: "inline-block" }}>{it.val}</div>

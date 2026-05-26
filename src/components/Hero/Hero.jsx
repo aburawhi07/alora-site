@@ -46,14 +46,14 @@ export default function Hero({ setPage }) {
   return (
     <section className="hero" style={heroWrap}>
       {/* Watermark logo */}
-      <img src={logoImg} alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "75%", maxWidth: 900, opacity: 0.50, pointerEvents: "none", userSelect: "none" }} />
+      <img className="hero__watermark" src={logoImg} alt="" style={{ position: "absolute", top: "15%", left: "50%", transform: "translate(-50%, 0)", width: "75%", maxWidth: 900, opacity: 0.18, pointerEvents: "none", userSelect: "none" }} />
       {/* Decorative circles */}
       <div style={{ position: "absolute", top: -80, left: -80, width: 320, height: 320, borderRadius: "50%", background: `radial-gradient(circle, rgba(245,200,0,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: -60, right: "5%", width: 260, height: 260, borderRadius: "50%", background: `radial-gradient(circle, rgba(42,143,163,0.10) 0%, transparent 70%)`, pointerEvents: "none" }} />
       {/* Spinning ring */}
-      <div style={{ position: "absolute", top: "12%", left: "42%", width: 340, height: 340, border: `1.5px dashed ${T.gray200}`, borderRadius: "50%", animation: "spinSlow 28s linear infinite", pointerEvents: "none" }} />
+      <div className="hero__ring" style={{ position: "absolute", top: "12%", left: "42%", width: 340, height: 340, border: `1.5px dashed ${T.gray200}`, borderRadius: "50%", animation: "spinSlow 28s linear infinite", pointerEvents: "none" }} />
       {/* Pattern Background */}
-      <img src={patternImg} alt="" style={{ position: "absolute", top: "67%", left: "11%", transform: "translate(-50%, -10%)", width: "75%", maxWidth: 400, opacity: 0.50, pointerEvents: "none", userSelect: "none" }} />
+      <img className="hero__pattern" src={patternImg} alt="" style={{ position: "absolute", top: "67%", left: "11%", transform: "translate(-50%, -10%)", width: "75%", maxWidth: 400, opacity: 0.50, pointerEvents: "none", userSelect: "none" }} />
 
       <div className="hero__grid">
         {/* Left: text */}
