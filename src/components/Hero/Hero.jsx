@@ -58,10 +58,6 @@ export default function Hero({ setPage }) {
       <div className="hero__grid">
         {/* Left: text */}
         <div className="hero-animate" style={{ animationDelay: "0.05s" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: T.yellowPale, border: `1.5px solid ${T.yellow}`, borderRadius: 50, padding: "5px 16px", marginBottom: 24 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: T.yellow }} />
-            <span style={{ fontSize: 12, fontWeight: 500, color: "#7a6000" }}  >مطبعة احترافية · عقابا ، فلسطين </span>
-          </div>
 
           <h1 style={{ fontFamily: "Syne", fontSize: "clamp(38px,5.5vw,68px)", fontWeight: 800, lineHeight: 1.12, color: T.dark, marginBottom: 20, letterSpacing: -1 }}>
             نطبع{" "}

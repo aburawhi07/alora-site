@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import logoImg from "../../assets/logo.png";
 import T from "../../utils/tokens";
 import "./Navbar.css";
@@ -22,12 +22,75 @@ export default function Navbar({ page, setPage }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isMobile, setIsMobile] = useState(false);
+  const [logoArrived, setLogoArrived] = useState(false);
+  const floatingLogoRef = useRef(null);
+  const navLogoRef = useRef(null);
+
+  // Detect mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Reset logoArrived when navigating to home
+  useEffect(() => {
+    if (page === "home") {
+      setLogoArrived(false);
+    }
+  }, [page]);
+
+  // Scroll-driven logo animation (mobile only)
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 24);
+
+    if (!isMobile || !floatingLogoRef.current) return;
+
+    const scrollY = window.scrollY;
+    const SCROLL_START = 10;
+    const SCROLL_END = 220;
+    const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
+
+    // Eased progress for smoother feel
+    const ease = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    // Start position: centered in hero
+    const startX = window.innerWidth / 2;
+    const startY = window.innerHeight * 0.27;
+    const startScale = 1.0;
+    const startOpacity = 0.6;
+
+    // End position: navbar logo spot
+    const endX = window.innerWidth - 55;
+    const endY = 36;
+    const endScale = 0.28;
+    const endOpacity = 1;
+
+    const x = startX + (endX - startX) * ease;
+    const y = startY + (endY - startY) * ease;
+    const scale = startScale + (endScale - startScale) * ease;
+    const opacity = startOpacity + (endOpacity - startOpacity) * ease;
+
+    const fl = floatingLogoRef.current;
+    fl.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale})`;
+    fl.style.opacity = opacity;
+
+    if (progress >= 1 && !logoArrived) {
+      setLogoArrived(true);
+    } else if (progress < 0.95 && logoArrived) {
+      setLogoArrived(false);
+    }
+  }, [isMobile, logoArrived]);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   /* Track which section is currently visible */
   useEffect(() => {
@@ -75,15 +138,41 @@ export default function Navbar({ page, setPage }) {
     return activeSection === id;
   };
 
+  const showNavLogo = !isMobile || logoArrived || page !== "home";
+
   return (
     <>
+      {/* Floating animated logo (mobile only, home page) */}
+      {isMobile && page === "home" && (
+        <div
+          ref={floatingLogoRef}
+          className="navbar__floating-logo"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 99,
+            pointerEvents: "none",
+            willChange: "transform, opacity",
+            visibility: logoArrived ? "hidden" : "visible",
+          }}
+        >
+          <img src={logoImg} alt="" style={{ height: 250, width: "auto" }} />
+        </div>
+      )}
+
       <nav
         className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${menuOpen ? "navbar--menu-open" : ""}`}
         dir="rtl"
         role="navigation"
         aria-label="التنقل الرئيسي"
       >
-        <div style={{ display: "flex", alignItems: "center", cursor: "pointer", position: "relative", zIndex: 110 }} onClick={() => setPage("home")}>
+        <div
+          ref={navLogoRef}
+          className={`navbar__logo-wrap ${showNavLogo ? "navbar__logo-wrap--visible" : ""}`}
+          style={{ display: "flex", alignItems: "center", cursor: "pointer", position: "relative", zIndex: 110 }}
+          onClick={() => setPage("home")}
+        >
           <Logo height={70} />
         </div>
 

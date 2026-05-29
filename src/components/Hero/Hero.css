@@ -1,5 +1,5 @@
 .hero {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   padding: 120px 40px 80px;
@@ -45,7 +45,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 100vh;
+    min-height: 90vh;
     padding: 100px 20px 60px;
   }
 
@@ -68,13 +68,15 @@
   }
 
   .hero__watermark {
-    top: 5% !important;
-    width: 90% !important;
-    opacity: 0.12 !important;
+    display: none;
   }
 
   .hero__buttons {
     justify-content: center;
+  }
+
+  .hero h1 {
+    padding-top: 200px;
   }
 }
 

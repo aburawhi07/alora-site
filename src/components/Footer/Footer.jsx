@@ -33,7 +33,7 @@ export default function Footer({ setPage }) {
             <div style={{ display: "flex", alignItems: "center", marginBottom: 16, cursor: "pointer" }} onClick={() => setPage("home")}>
               <Logo height={120} dark />
             </div>
-            <p style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>مطبعة وتصميم جرافيك احترافية في نابلس، فلسطين. نحول أفكارك إلى واقع مطبوع.</p>
+            <p style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. نحول أفكارك إلى واقع مطبوع.</p>
           </div>
           <div>
             <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>روابط سريعة</div>
@@ -133,7 +133,6 @@ export default function Footer({ setPage }) {
         </div>
         <div className="footer__bottom">
           <span style={{ fontSize: 12 }}>© 2026 ALORA Graphic. جميع الحقوق محفوظة.</span>
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>صُمِّم باحتراف في فلسطين 🇵🇸</span>
         </div>
       </div>
     </footer>

@@ -87,7 +87,8 @@
 
 /* ─── PROCESS STEP (for mobile restructure) ─────────────── */
 .process-step__text {
-  display: none; /* hidden on desktop, text is inline */
+  display: none;
+  /* hidden on desktop, text is inline */
 }
 
 @media (max-width: 768px) {
