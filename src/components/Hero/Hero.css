@@ -1,5 +1,5 @@
 .hero {
-  min-height: 85vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   padding: 120px 40px 80px;
@@ -59,9 +59,8 @@
     display: none;
   }
 
-  .hero__ring {
-    display: none;
-  }
+
+
 
   .hero__pattern {
     display: none;

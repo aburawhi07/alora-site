@@ -20,12 +20,14 @@ export function Logo({ height = 38, dark = false }) {
 
 export default function Navbar({ page, setPage }) {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
   const [logoArrived, setLogoArrived] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const floatingLogoRef = useRef(null);
   const navLogoRef = useRef(null);
+  const lastScrollY = useRef(0);
+  const heroHeight = useRef(0);
 
   // Detect mobile
   useEffect(() => {
@@ -42,16 +44,42 @@ export default function Navbar({ page, setPage }) {
     }
   }, [page]);
 
-  // Scroll-driven logo animation (mobile only)
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 24);
+  // Measure hero height
+  useEffect(() => {
+    const hero = document.querySelector(".hero");
+    if (hero) {
+      heroHeight.current = hero.offsetHeight;
+    }
+  }, [page]);
 
+  // Scroll-driven logo animation + hide/show navbar (mobile only)
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    setScrolled(currentScrollY > 24);
+
+    // Mobile: hide/show navbar based on scroll direction (Facebook-style)
+    if (isMobile && heroHeight.current > 0) {
+      const pastHero = currentScrollY > heroHeight.current;
+      if (pastHero) {
+        if (currentScrollY > lastScrollY.current + 5) {
+          // Scrolling down → hide
+          setNavHidden(true);
+        } else if (currentScrollY < lastScrollY.current - 5) {
+          // Scrolling up → show
+          setNavHidden(false);
+        }
+      } else {
+        setNavHidden(false);
+      }
+    }
+    lastScrollY.current = currentScrollY;
+
+    // Logo animation
     if (!isMobile || !floatingLogoRef.current) return;
 
-    const scrollY = window.scrollY;
     const SCROLL_START = 10;
     const SCROLL_END = 220;
-    const progress = Math.min(1, Math.max(0, (scrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
+    const progress = Math.min(1, Math.max(0, (currentScrollY - SCROLL_START) / (SCROLL_END - SCROLL_START)));
 
     // Eased progress for smoother feel
     const ease = progress < 0.5
@@ -115,7 +143,6 @@ export default function Navbar({ page, setPage }) {
   const ids = ["home", "services", "portfolio", "why", "contact"];
 
   const handleNav = (id) => {
-    setMenuOpen(false);
     if (id === "home") {
       setPage("home");
       setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
@@ -162,7 +189,7 @@ export default function Navbar({ page, setPage }) {
       )}
 
       <nav
-        className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${menuOpen ? "navbar--menu-open" : ""}`}
+        className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${navHidden ? "navbar--hidden" : ""}`}
         dir="rtl"
         role="navigation"
         aria-label="التنقل الرئيسي"
@@ -206,41 +233,23 @@ export default function Navbar({ page, setPage }) {
           اطلب الآن
         </button>
 
-        {/* Hamburger button (mobile) */}
-        <button
-          className="navbar__hamburger"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-          aria-expanded={menuOpen}
-        >
-          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-          <span className={`navbar__hamburger-line ${menuOpen ? "open" : ""}`} />
-        </button>
+        {/* Mobile inline links (no hamburger, no "اطلب الآن") */}
+        <div className={`navbar__mobile-links ${showNavLogo ? "navbar__mobile-links--logo-visible" : ""}`}>
+          {links.map((l, i) => (
+            <button
+              key={l}
+              onClick={() => handleNav(ids[i])}
+              className="navbar__mobile-link-inline"
+              style={{
+                color: isActive(ids[i]) ? T.tealDark : T.gray700,
+                fontWeight: isActive(ids[i]) ? 600 : 400,
+              }}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
       </nav>
-
-      {/* Mobile drawer – rendered outside nav so it covers the full screen */}
-      <div className={`navbar__mobile ${menuOpen ? "navbar__mobile--open" : ""}`} dir="rtl">
-        {links.map((l, i) => (
-          <button
-            key={l}
-            onClick={() => handleNav(ids[i])}
-            className="navbar__mobile-link"
-            style={{
-              color: isActive(ids[i]) ? T.tealDark : T.gray700,
-              fontWeight: isActive(ids[i]) ? 600 : 400,
-            }}
-          >
-            {l}
-          </button>
-        ))}
-        <button
-          onClick={() => handleNav("contact")}
-          className="navbar__mobile-cta"
-        >
-          اطلب الآن
-        </button>
-      </div>
     </>
   );
 }

@@ -170,8 +170,4 @@
   .section {
     padding: 48px 16px;
   }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
 }

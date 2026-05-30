@@ -55,9 +55,24 @@
     margin-bottom: 20px;
   }
 
-  .footer__grid > div:first-child {
+  /* Logo column: right-aligned, spans full width on top */
+  .footer__logo-col {
     grid-column: 1 / -1;
-    text-align: center;
+    text-align: right;
+    order: -1;
+  }
+
+  .footer__logo-col img {
+    height: 80px !important;
+  }
+
+  .footer__logo-col > div {
+    justify-content: flex-start;
+  }
+
+  /* Hide description text under logo on mobile */
+  .footer__logo-desc {
+    display: none;
   }
 
   .footer__link-btn {

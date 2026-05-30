@@ -29,42 +29,7 @@ export default function Footer({ setPage }) {
       />
       <div className="footer__inner" style={{ position: "relative", zIndex: 1 }}>
         <div className="footer__grid">
-          <div>
-            <div style={{ display: "flex", alignItems: "center", marginBottom: 16, cursor: "pointer" }} onClick={() => setPage("home")}>
-              <Logo height={120} dark />
-            </div>
-            <p style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. نحول أفكارك إلى واقع مطبوع.</p>
-          </div>
-          <div>
-            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>روابط سريعة</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {links.map(l => (
-                <button
-                  key={l.id}
-                  onClick={() => {
-                    if (l.id === "request") {
-                      setPage("home");
-                      setTimeout(() => {
-                        const el = document.getElementById("contact");
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                      }, 100);
-                    } else {
-                      setPage("home");
-                      setTimeout(() => {
-                        const el = document.getElementById(l.id);
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                      }, 100);
-                    }
-                  }}
-                  className="footer__link-btn"
-                  onMouseEnter={e => e.target.style.color = T.yellow}
-                  onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* تواصل معنا - Left/First */}
           <div>
             <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>تواصل معنا</div>
             {[
@@ -94,6 +59,24 @@ export default function Footer({ setPage }) {
                 ),
                 v: "aloragraphic@gmail.com",
                 href: "mailto:aloragraphic@gmail.com"
+              },
+              {
+                ic: (color) => (
+                  <svg style={{ width: 16, height: 16 }} viewBox="0 0 24 24" fill={color} stroke="none">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                ),
+                v: "Facebook",
+                href: "https://www.facebook.com/profile.php?id=100063596649869"
+              },
+              {
+                ic: (color) => (
+                  <svg style={{ width: 16, height: 16 }} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                ),
+                v: "Instagram",
+                href: "https://www.instagram.com/alora_graphic?igsh=eHc4ZDdpNmJ2dmpp"
               }
             ].map(item => {
               const Tag = item.href ? "a" : "div";
@@ -129,6 +112,46 @@ export default function Footer({ setPage }) {
                 </Tag>
               );
             })}
+          </div>
+
+          {/* روابط سريعة - Center */}
+          <div>
+            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>روابط سريعة</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {links.map(l => (
+                <button
+                  key={l.id}
+                  onClick={() => {
+                    if (l.id === "request") {
+                      setPage("home");
+                      setTimeout(() => {
+                        const el = document.getElementById("contact");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
+                    } else {
+                      setPage("home");
+                      setTimeout(() => {
+                        const el = document.getElementById(l.id);
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
+                    }
+                  }}
+                  className="footer__link-btn"
+                  onMouseEnter={e => e.target.style.color = T.yellow}
+                  onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Logo - Right */}
+          <div className="footer__logo-col">
+            <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={() => setPage("home")}>
+              <Logo height={120} dark />
+            </div>
+            <p className="footer__logo-desc" style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. نحول أفكارك إلى واقع مطبوع.</p>
           </div>
         </div>
         <div className="footer__bottom">
