@@ -2,9 +2,11 @@ import logoImg from "../../assets/logo.png";
 import patternImg from "../../assets/logo_2.png";
 import T from "../../utils/tokens";
 import useReveal from "../../hooks/useReveal";
+import { useLang } from "../../utils/LangContext";
 import "./Hero.css";
 
 export function HeroVisual() {
+  const { t } = useLang();
   return (
     <div className="hero__visual hero-animate" style={{ animationDelay: "0.15s" }}>
       {/* Main big card */}
@@ -12,9 +14,9 @@ export function HeroVisual() {
         <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
           {[T.yellow, "rgba(255,255,255,0.3)", "rgba(255,255,255,0.3)"].map((c, i) => <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: c }} />)}
         </div>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.6)", marginBottom: 4 }}>بطاقة أعمال</div>
-        <div style={{ fontFamily: "Syne", fontSize: 18, fontWeight: 800, color: T.yellow }}>محمد الأحمد</div>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginBottom: 12 }}>مدير تسويق</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.6)", marginBottom: 4 }}>{t("hero.cardLabel")}</div>
+        <div style={{ fontFamily: "Syne", fontSize: 18, fontWeight: 800, color: T.yellow }}>{t("hero.cardName")}</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginBottom: 12 }}>{t("hero.cardRole")}</div>
         <div style={{ height: 1, background: "rgba(255,255,255,0.1)", marginBottom: 12 }} />
         <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", direction: "ltr", textAlign: "right" }}>+972 59 965 1585</div>
       </div>
@@ -23,7 +25,7 @@ export function HeroVisual() {
 
       {/* Badge */}
       <div style={{ position: "absolute", top: 0, left: 40, background: T.yellow, borderRadius: 50, padding: "8px 18px", fontFamily: "Syne", fontSize: 13, fontWeight: 800, color: "#1a2e33", boxShadow: "0 6px 20px rgba(245,200,0,0.35)", animation: "floatA 3.5s ease-in-out infinite" }}>
-        ✦ جودة مضمونة
+        {t("hero.badge")}
       </div>
 
       {/* Color palette swatch */}
@@ -38,6 +40,7 @@ export function HeroVisual() {
 
 export default function Hero({ setPage }) {
   useReveal();
+  const { t, dir, isRTL } = useLang();
 
   const heroWrap = {
     background: `linear-gradient(145deg, ${T.white} 0%, ${T.tealPale} 55%, ${T.white} 100%)`,
@@ -55,20 +58,20 @@ export default function Hero({ setPage }) {
       {/* Pattern Background */}
       <img className="hero__pattern" src={patternImg} alt="" style={{ position: "absolute", top: "67%", left: "11%", transform: "translate(-50%, -10%)", width: "75%", maxWidth: 400, opacity: 0.50, pointerEvents: "none", userSelect: "none" }} />
 
-      <div className="hero__grid">
+      <div className="hero__grid" style={{ direction: dir }}>
         {/* Left: text */}
         <div className="hero-animate" style={{ animationDelay: "0.05s" }}>
 
           <h1 style={{ fontFamily: "Syne", fontSize: "clamp(38px,5.5vw,68px)", fontWeight: 800, lineHeight: 1.12, color: T.dark, marginBottom: 20, letterSpacing: -1 }}>
-            نطبع{" "}
-            <span style={{ color: T.tealDark, display: "inline-block" }}>أفكارك</span>
+            {t("hero.h1_1")}{" "}
+            <span style={{ color: T.tealDark, display: "inline-block" }}>{t("hero.h1_2")}</span>
             <br />
-            <span style={{ color: T.tealDark, display: "inline-block" }}>ونحولها</span>
-            {" "}لواقع
+            <span style={{ color: T.tealDark, display: "inline-block" }}>{t("hero.h1_3")}</span>
+            {" "}{t("hero.h1_4")}
           </h1>
 
           <p style={{ fontSize: 17, color: T.gray700, lineHeight: 1.8, maxWidth: 440, marginBottom: 36 }}>
-            من الهوية البصرية إلى الطباعة الاحترافية — نجمع بين الإبداع والتقنية لنقدم منتجاً يستحق الفخر.
+            {t("hero.desc")}
           </p>
 
           <div className="hero__buttons" style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
@@ -81,7 +84,7 @@ export default function Hero({ setPage }) {
               onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 14px 36px rgba(26,107,122,0.38)`; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = `0 8px 28px rgba(26,107,122,0.3)`; }}
             >
-              اطلب الآن
+              {t("hero.ctaPrimary")}
             </button>
             <button
               onClick={() => {
@@ -92,7 +95,7 @@ export default function Hero({ setPage }) {
               onMouseEnter={(e) => { e.currentTarget.style.background = T.tealPale; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
             >
-              شاهد أعمالنا
+              {t("hero.ctaSecondary")}
             </button>
           </div>
         </div>

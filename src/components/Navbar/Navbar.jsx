@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import logoImg from "../../assets/logo.png";
 import T from "../../utils/tokens";
+import { useLang } from "../../utils/LangContext";
 import "./Navbar.css";
 
 export function Logo({ height = 38, dark = false }) {
@@ -19,6 +20,7 @@ export function Logo({ height = 38, dark = false }) {
 }
 
 export default function Navbar({ page, setPage }) {
+  const { t, dir, lang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
@@ -139,7 +141,7 @@ export default function Navbar({ page, setPage }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [page]);
 
-  const links = ["الرئيسية", "خدماتنا", "أعمالنا", "لماذا نحن", "تواصل"];
+  const links = t("navbar.links");
   const ids = ["home", "services", "portfolio", "why", "contact"];
 
   const handleNav = (id) => {
@@ -190,9 +192,9 @@ export default function Navbar({ page, setPage }) {
 
       <nav
         className={`navbar ${scrolled ? "navbar--scrolled" : ""} ${navHidden ? "navbar--hidden" : ""}`}
-        dir="rtl"
+        dir={dir}
         role="navigation"
-        aria-label="التنقل الرئيسي"
+        aria-label={lang === "ar" ? "التنقل الرئيسي" : "Main Navigation"}
       >
         <div
           ref={navLogoRef}
@@ -207,9 +209,9 @@ export default function Navbar({ page, setPage }) {
         <div className="navbar__links">
           {links.map((l, i) => (
             <button
-              key={l}
+              key={ids[i]}
               onClick={() => handleNav(ids[i])}
-              aria-label={`انتقل إلى ${l}`}
+              aria-label={lang === "ar" ? `انتقل إلى ${l}` : `Go to ${l}`}
               style={{
                 background: isActive(ids[i]) ? T.tealPale : "transparent",
                 color: isActive(ids[i]) ? T.tealDark : T.gray700,
@@ -228,16 +230,16 @@ export default function Navbar({ page, setPage }) {
         <button
           onClick={() => handleNav("contact")}
           className="navbar__cta"
-          aria-label="اطلب خدمة الآن"
+          aria-label={lang === "ar" ? "اطلب خدمة الآن" : "Order a service now"}
         >
-          اطلب الآن
+          {t("navbar.cta")}
         </button>
 
-        {/* Mobile inline links (no hamburger, no "اطلب الآن") */}
+        {/* Mobile inline links */}
         <div className={`navbar__mobile-links ${showNavLogo ? "navbar__mobile-links--logo-visible" : ""}`}>
           {links.map((l, i) => (
             <button
-              key={l}
+              key={ids[i]}
               onClick={() => handleNav(ids[i])}
               className="navbar__mobile-link-inline"
               style={{

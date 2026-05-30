@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { LangProvider } from "./utils/LangContext";
 import Navbar    from "./components/Navbar/Navbar";
 import Footer    from "./components/Footer/Footer";
 import Home      from "./pages/Home";
@@ -21,12 +22,14 @@ export default function App() {
   const [page, setPage] = useState("home");
 
   return (
-    <div>
-      <Navbar page={page} setPage={setPage} />
-      <main>
-        <PageContent page={page} setPage={setPage} />
-      </main>
-      <Footer setPage={setPage} />
-    </div>
+    <LangProvider>
+      <div>
+        <Navbar page={page} setPage={setPage} />
+        <main>
+          <PageContent page={page} setPage={setPage} />
+        </main>
+        <Footer setPage={setPage} />
+      </div>
+    </LangProvider>
   );
 }

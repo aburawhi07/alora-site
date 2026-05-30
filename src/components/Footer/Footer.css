@@ -2,7 +2,6 @@
   background: var(--color-dark);
   color: rgba(255, 255, 255, 0.6);
   padding: 32px 40px;
-  direction: rtl;
 }
 
 .footer__inner {
@@ -30,7 +29,7 @@
 .footer__link-btn {
   background: none;
   border: none;
-  text-align: right;
+  text-align: start;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.55);
   cursor: pointer;
@@ -41,6 +40,29 @@
 
 .footer__link-btn:hover {
   color: var(--color-yellow);
+}
+
+/* ─── LANGUAGE TOGGLE ───────────────────────────────────── */
+.footer__lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.footer__lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-yellow);
+  border-color: var(--color-yellow);
 }
 
 /* ─── RESPONSIVE ────────────────────────────────────────── */
@@ -76,7 +98,7 @@
   }
 
   .footer__link-btn {
-    text-align: right;
+    text-align: start;
     font-size: 12px;
   }
 

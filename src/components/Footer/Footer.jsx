@@ -1,18 +1,16 @@
 import T from "../../utils/tokens";
 import { Logo } from "../Navbar/Navbar";
 import patternImg from "../../assets/logo_2.png";
+import { useLang } from "../../utils/LangContext";
 import "./Footer.css";
 
 export default function Footer({ setPage }) {
-  const links = [
-    { label: "خدماتنا", id: "services" },
-    { label: "أعمالنا", id: "portfolio" },
-    { label: "لماذا نحن", id: "why" },
-    { label: "تواصل", id: "contact" },
-    { label: "اطلب خدمة", id: "request" },
-  ];
+  const { t, lang, setLang, dir } = useLang();
+
+  const links = t("footer.links");
+
   return (
-    <footer className="footer" style={{ position: "relative", overflow: "hidden" }}>
+    <footer className="footer" style={{ position: "relative", overflow: "hidden", direction: dir }}>
       {/* Corner pattern decoration */}
       <img
         src={patternImg}
@@ -31,7 +29,7 @@ export default function Footer({ setPage }) {
         <div className="footer__grid">
           {/* تواصل معنا - Left/First */}
           <div>
-            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>تواصل معنا</div>
+            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>{t("footer.contactUs")}</div>
             {[
               {
                 ic: (color) => (
@@ -39,7 +37,7 @@ export default function Footer({ setPage }) {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
                   </svg>
                 ),
-                v: "عقابا، فلسطين",
+                v: t("footer.location"),
                 href: "https://maps.app.goo.gl/EFaxJN4bJMobaMWU6"
               },
               {
@@ -116,7 +114,7 @@ export default function Footer({ setPage }) {
 
           {/* روابط سريعة - Center */}
           <div>
-            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>روابط سريعة</div>
+            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>{t("footer.quickLinks")}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {links.map(l => (
                 <button
@@ -151,11 +149,24 @@ export default function Footer({ setPage }) {
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={() => setPage("home")}>
               <Logo height={120} dark />
             </div>
-            <p className="footer__logo-desc" style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. نحول أفكارك إلى واقع مطبوع.</p>
+            <p className="footer__logo-desc" style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>{t("footer.logoDesc")}</p>
           </div>
         </div>
         <div className="footer__bottom">
-          <span style={{ fontSize: 12 }}>© 2026 ALORA Graphic. جميع الحقوق محفوظة.</span>
+          <span style={{ fontSize: 12 }}>{t("footer.copyright")}</span>
+          {/* Language toggle */}
+          <button
+            className="footer__lang-toggle"
+            onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+            aria-label="Switch language"
+          >
+            <svg style={{ width: 14, height: 14 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            {t("footer.langToggle")}
+          </button>
         </div>
       </div>
     </footer>
