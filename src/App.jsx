@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import { LangProvider } from "./utils/LangContext";
 import Navbar    from "./components/Navbar/Navbar";
@@ -29,6 +30,7 @@ export default function App() {
           <PageContent page={page} setPage={setPage} />
         </main>
         <Footer setPage={setPage} />
+        <Analytics />
       </div>
     </LangProvider>
   );
