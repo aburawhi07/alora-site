@@ -8,7 +8,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { name, email, message, services } = req.body;
+  const { name, contactInfo, email, phone, message, services } = req.body;
+  const contact = contactInfo || email || phone;
 
   // Basic validation
   if (!name || !name.trim()) {
@@ -28,10 +29,10 @@ export default async function handler(req, res) {
               <td style="padding: 10px 0; font-weight: 600; color: #1a6b7a; width: 100px;">الاسم:</td>
               <td style="padding: 10px 0; color: #1a2e33;">${name}</td>
             </tr>
-            ${email ? `
+            ${contact ? `
             <tr>
-              <td style="padding: 10px 0; font-weight: 600; color: #1a6b7a;">البريد:</td>
-              <td style="padding: 10px 0; color: #1a2e33; direction: ltr; text-align: right;">${email}</td>
+              <td style="padding: 10px 0; font-weight: 600; color: #1a6b7a;">وسيلة التواصل:</td>
+              <td style="padding: 10px 0; color: #1a2e33; direction: ltr; text-align: right;">${contact}</td>
             </tr>` : ""}
             ${services ? `
             <tr>

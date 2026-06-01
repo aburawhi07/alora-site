@@ -174,8 +174,8 @@ const translations = {
     form: {
       nameLabel: { ar: "الاسم الكامل", en: "Full Name" },
       namePlaceholder: { ar: "أدخل اسمك", en: "Enter your name" },
-      emailLabel: { ar: "البريد الإلكتروني", en: "Email Address" },
-      emailPlaceholder: { ar: "example@email.com", en: "example@email.com" },
+      contactInfoLabel: { ar: "البريد أو الهاتف", en: "Email or Phone" },
+      contactInfoPlaceholder: { ar: "أدخل بريدك أو رقم هاتفك", en: "Enter your email or phone" },
       msgLabel: { ar: "رسالتك", en: "Your Message" },
       msgPlaceholder: { ar: "اشرح لنا ما تحتاجه...", en: "Tell us what you need..." },
       submit: { ar: "إرسال الرسالة", en: "Send Message" },
@@ -242,8 +242,8 @@ const translations = {
     },
     nameLabel: { ar: "الاسم الكامل", en: "Full Name" },
     namePlaceholder: { ar: "أدخل اسمك", en: "Enter your name" },
-    phoneLabel: { ar: "رقم الهاتف", en: "Phone Number" },
-    phonePlaceholder: { ar: "05X XXX XXXX", en: "05X XXX XXXX" },
+    contactInfoLabel: { ar: "البريد أو الهاتف", en: "Email or Phone" },
+    contactInfoPlaceholder: { ar: "أدخل بريدك أو رقم هاتفك", en: "Enter your email or phone" },
     qtyLabel: { ar: "الكمية", en: "Quantity" },
     qtyPlaceholder: { ar: "اختر الكمية", en: "Select quantity" },
     qtyOptions: {

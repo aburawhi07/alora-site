@@ -8,7 +8,7 @@ export default function RequestPage() {
   useReveal();
   const { t, dir } = useLang();
   const [selSvcs, setSelSvcs] = useState([]);
-  const [form, setForm] = useState({ name: "", phone: "", qty: "", budget: "", details: "" });
+  const [form, setForm] = useState({ name: "", contactInfo: "", qty: "", budget: "", details: "" });
   const [sent, setSent] = useState(false);
 
   const [sending, setSending] = useState(false);
@@ -26,7 +26,7 @@ export default function RequestPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           name: form.name, 
-          phone: form.phone, 
+          contactInfo: form.contactInfo, 
           message: `Qty: ${form.qty}\nBudget: ${form.budget}\nDetails: ${form.details}`,
           services: selSvcs.join(", ") 
         }),
@@ -34,7 +34,7 @@ export default function RequestPage() {
       if (!res.ok) throw new Error("fail");
       setSent(true);
       setSelSvcs([]);
-      setForm({ name: "", phone: "", qty: "", budget: "", details: "" });
+      setForm({ name: "", contactInfo: "", qty: "", budget: "", details: "" });
       setTimeout(() => setSent(false), 6000);
     } catch {
       setError(true);
@@ -86,8 +86,8 @@ export default function RequestPage() {
               <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("request.namePlaceholder")} className="request-input" />
             </div>
             <div>
-              <label className="request-field-label">{t("request.phoneLabel")}</label>
-              <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder={t("request.phonePlaceholder")} dir="ltr" className="request-input" />
+              <label className="request-field-label">{t("request.contactInfoLabel")}</label>
+              <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("request.contactInfoPlaceholder")} dir="ltr" className="request-input" />
             </div>
           </div>
 
