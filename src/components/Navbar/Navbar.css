@@ -31,6 +31,60 @@
   gap: 10px;
 }
 
+.navbar__link-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  background: transparent;
+  color: var(--color-gray-700);
+  font-weight: 400;
+}
+
+.navbar__link-btn:hover {
+  background: var(--color-gray-100);
+}
+
+.navbar__link-btn--active {
+  background: var(--color-teal-pale) !important;
+  color: var(--color-teal-dark) !important;
+  font-weight: 600;
+}
+
+/* ─── LOGO STYLES ───────────────────────────────────────── */
+.navbar__logo-img {
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar__logo-img--dark {
+  filter: brightness(0) invert(1);
+}
+
+.navbar__floating-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.navbar__floating-logo-img {
+  height: 250px;
+  width: auto;
+}
+
+.navbar__logo-wrap-base {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 110;
+}
+
 .navbar__cta {
   background: var(--color-teal-dark);
   color: var(--color-white);
@@ -106,7 +160,6 @@
   .navbar__mobile-link-inline {
     background: none;
     border: none;
-    font-family: var(--font-body);
     font-size: 14px;
     padding: 8px 10px;
     border-radius: 8px;
@@ -114,10 +167,17 @@
     transition: all 0.18s;
     white-space: nowrap;
     flex-shrink: 0;
+    color: var(--color-gray-700);
+    font-weight: 400;
   }
 
   .navbar__mobile-link-inline:active {
     background: var(--color-teal-pale);
+  }
+
+  .navbar__mobile-link-inline--active {
+    color: var(--color-teal-dark) !important;
+    font-weight: 600 !important;
   }
 
   /* ─── MOBILE LOGO ANIMATION ─────────────────────────────── */

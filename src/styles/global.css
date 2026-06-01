@@ -35,3 +35,13 @@ body {
   background: var(--color-teal-dark);
   border-radius: 2px;
 }
+
+/* ─── ENGLISH FONT OVERRIDE ─────────────────────────────── */
+html[lang="en"],
+html[lang="en"] * {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+html[lang="en"] body {
+  font-size: 14px;
+}

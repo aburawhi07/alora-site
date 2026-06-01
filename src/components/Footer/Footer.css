@@ -65,6 +65,60 @@
   border-color: var(--color-yellow);
 }
 
+/* ─── NEW CLASSES ───────────────────────────────────────── */
+.footer__pattern {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  width: 450px;
+  opacity: 0.30;
+  pointer-events: none;
+  user-select: none;
+}
+
+.footer__col-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.footer__contact-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s;
+}
+
+.footer__contact-item--clickable {
+  cursor: pointer;
+}
+
+.footer__contact-item--clickable:hover {
+  color: var(--color-yellow);
+}
+
+.footer__contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__contact-text--ltr {
+  direction: ltr;
+}
+
+.footer__links-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* ─── RESPONSIVE ────────────────────────────────────────── */
 @media (max-width: 768px) {
   .footer {

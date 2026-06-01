@@ -15,21 +15,13 @@ export default function Footer({ setPage }) {
       <img
         src={patternImg}
         alt=""
-        style={{
-          position: "absolute",
-          bottom: "0%",
-          left: "0%",
-          width: "450px",
-          opacity: 0.30,
-          pointerEvents: "none",
-          userSelect: "none"
-        }}
+        className="footer__pattern"
       />
       <div className="footer__inner" style={{ position: "relative", zIndex: 1 }}>
         <div className="footer__grid">
           {/* تواصل معنا - Left/First */}
           <div>
-            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>{t("footer.contactUs")}</div>
+            <div className="footer__col-title">{t("footer.contactUs")}</div>
             {[
               {
                 ic: (color) => (
@@ -87,26 +79,10 @@ export default function Footer({ setPage }) {
                 <Tag
                   key={item.v}
                   {...props}
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                    alignItems: "center",
-                    marginBottom: 10,
-                    fontSize: 13,
-                    textDecoration: "none",
-                    color: "rgba(255,255,255,0.55)",
-                    transition: "color 0.2s",
-                    cursor: item.href ? "pointer" : "default"
-                  }}
-                  onMouseEnter={e => {
-                    if (item.href) e.currentTarget.style.color = T.yellow;
-                  }}
-                  onMouseLeave={e => {
-                    if (item.href) e.currentTarget.style.color = "rgba(255,255,255,0.55)";
-                  }}
+                  className={`footer__contact-item ${item.href ? "footer__contact-item--clickable" : ""}`}
                 >
-                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>{item.ic("currentColor")}</span>
-                  <span style={{ direction: item.href && item.href.startsWith("tel:") ? "ltr" : "inherit" }}>{item.v}</span>
+                  <span className="footer__contact-icon">{item.ic("currentColor")}</span>
+                  <span className={item.href && item.href.startsWith("tel:") ? "footer__contact-text--ltr" : ""}>{item.v}</span>
                 </Tag>
               );
             })}
@@ -114,8 +90,8 @@ export default function Footer({ setPage }) {
 
           {/* روابط سريعة - Center */}
           <div>
-            <div style={{ fontFamily: "Syne", fontSize: 14, fontWeight: 700, color: T.white, marginBottom: 16 }}>{t("footer.quickLinks")}</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div className="footer__col-title">{t("footer.quickLinks")}</div>
+            <div className="footer__links-col">
               {links.map(l => (
                 <button
                   key={l.id}
@@ -135,8 +111,6 @@ export default function Footer({ setPage }) {
                     }
                   }}
                   className="footer__link-btn"
-                  onMouseEnter={e => e.target.style.color = T.yellow}
-                  onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
                 >
                   {l.label}
                 </button>

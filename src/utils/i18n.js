@@ -184,6 +184,14 @@ const translations = {
         ar: "✓ تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.",
         en: "✓ Your message was sent successfully! We'll contact you soon.",
       },
+      error: {
+        ar: "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.",
+        en: "An error occurred while sending. Please try again.",
+      },
+      sending: {
+        ar: "جاري الإرسال...",
+        en: "Sending...",
+      },
     },
   },
 
@@ -253,8 +261,16 @@ const translations = {
     submit: { ar: "إرسال الطلب", en: "Submit Request" },
     whatsapp: { ar: "واتساب", en: "WhatsApp" },
     success: {
-      ar: "✓ تم إرسال طلبك بنجاح! سنتواصل معك قريباً.",
+      ar: "✓ تم إرسال طلبك بنجاح! سنتواصل معك قريباً لمناقشة التفاصيل.",
       en: "✓ Your request was sent successfully! We'll contact you soon.",
+    },
+    error: {
+      ar: "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.",
+      en: "An error occurred while sending. Please try again.",
+    },
+    sending: {
+      ar: "جاري الإرسال...",
+      en: "Sending...",
     },
     infoNote: {
       ar: "يتم مراجعة الطلبات خلال ساعات العمل (9ص – 9م). سنرسل لك تأكيداً وسعراً تفصيلياً عبر واتساب أو الهاتف.",

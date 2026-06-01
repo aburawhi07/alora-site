@@ -9,12 +9,8 @@ export function Logo({ height = 38, dark = false }) {
     <img
       src={logoImg}
       alt="ALORA Graphic"
-      style={{
-        height,
-        width: "auto",
-        objectFit: "contain",
-        filter: dark ? "brightness(0) invert(1)" : "none",
-      }}
+      className={`navbar__logo-img ${dark ? "navbar__logo-img--dark" : ""}`}
+      style={{ height }}
     />
   );
 }
@@ -176,17 +172,9 @@ export default function Navbar({ page, setPage }) {
         <div
           ref={floatingLogoRef}
           className="navbar__floating-logo"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 99,
-            pointerEvents: "none",
-            willChange: "transform, opacity",
-            visibility: logoArrived ? "hidden" : "visible",
-          }}
+          style={{ visibility: logoArrived ? "hidden" : "visible" }}
         >
-          <img src={logoImg} alt="" style={{ height: 250, width: "auto" }} />
+          <img src={logoImg} alt="" className="navbar__floating-logo-img" />
         </div>
       )}
 
@@ -198,8 +186,7 @@ export default function Navbar({ page, setPage }) {
       >
         <div
           ref={navLogoRef}
-          className={`navbar__logo-wrap ${showNavLogo ? "navbar__logo-wrap--visible" : ""}`}
-          style={{ display: "flex", alignItems: "center", cursor: "pointer", position: "relative", zIndex: 110 }}
+          className={`navbar__logo-wrap-base navbar__logo-wrap ${showNavLogo ? "navbar__logo-wrap--visible" : ""}`}
           onClick={() => setPage("home")}
         >
           <Logo height={70} />
@@ -212,15 +199,7 @@ export default function Navbar({ page, setPage }) {
               key={ids[i]}
               onClick={() => handleNav(ids[i])}
               aria-label={lang === "ar" ? `انتقل إلى ${l}` : `Go to ${l}`}
-              style={{
-                background: isActive(ids[i]) ? T.tealPale : "transparent",
-                color: isActive(ids[i]) ? T.tealDark : T.gray700,
-                border: "none", borderRadius: 12, padding: "10px 22px",
-                fontFamily: "DM Sans", fontSize: 16, fontWeight: isActive(ids[i]) ? 600 : 400,
-                cursor: "pointer", transition: "all 0.18s",
-              }}
-              onMouseEnter={(e) => { if (!isActive(ids[i])) e.target.style.background = T.gray100; }}
-              onMouseLeave={(e) => { if (!isActive(ids[i])) e.target.style.background = "transparent"; }}
+              className={`navbar__link-btn ${isActive(ids[i]) ? "navbar__link-btn--active" : ""}`}
             >
               {l}
             </button>
@@ -241,11 +220,7 @@ export default function Navbar({ page, setPage }) {
             <button
               key={ids[i]}
               onClick={() => handleNav(ids[i])}
-              className="navbar__mobile-link-inline"
-              style={{
-                color: isActive(ids[i]) ? T.tealDark : T.gray700,
-                fontWeight: isActive(ids[i]) ? 600 : 400,
-              }}
+              className={`navbar__mobile-link-inline ${isActive(ids[i]) ? "navbar__mobile-link-inline--active" : ""}`}
             >
               {l}
             </button>
