@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import { LangProvider } from "./utils/LangContext";
 import Navbar    from "./components/Navbar/Navbar";
@@ -31,6 +32,7 @@ export default function App() {
         </main>
         <Footer setPage={setPage} />
         <Analytics />
+        <SpeedInsights />
       </div>
     </LangProvider>
   );
