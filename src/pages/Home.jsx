@@ -329,7 +329,7 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", msg: "" });
+  const [form, setForm] = useState({ name: "", email: "", msg: "" });
   const submit = async () => {
     if (!form.name.trim() || sending) return;
     setSending(true);
@@ -338,12 +338,12 @@ function ContactForm() {
       const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.name, phone: form.phone, message: form.msg }),
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.msg }),
       });
       if (!res.ok) throw new Error("fail");
       setSent(true);
       setTimeout(() => setSent(false), 5000);
-      setForm({ name: "", phone: "", msg: "" });
+      setForm({ name: "", email: "", msg: "" });
     } catch {
       setError(true);
       setTimeout(() => setError(false), 5000);
@@ -368,8 +368,8 @@ function ContactForm() {
         <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("contact.form.namePlaceholder")} className="contact-form__input" dir={dir} />
       </div>
       <div className="contact-form__field">
-        <label className="contact-form__label">{t("contact.form.phoneLabel")}</label>
-        <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder={t("contact.form.phonePlaceholder")} dir="ltr" className="contact-form__input" />
+        <label className="contact-form__label">{t("contact.form.emailLabel")}</label>
+        <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder={t("contact.form.emailPlaceholder")} dir="ltr" className="contact-form__input" />
       </div>
       <div className="contact-form__field contact-form__field--last">
         <label className="contact-form__label">{t("contact.form.msgLabel")}</label>

@@ -174,8 +174,8 @@ const translations = {
     form: {
       nameLabel: { ar: "الاسم الكامل", en: "Full Name" },
       namePlaceholder: { ar: "أدخل اسمك", en: "Enter your name" },
-      phoneLabel: { ar: "رقم الهاتف", en: "Phone Number" },
-      phonePlaceholder: { ar: "05X XXX XXXX", en: "05X XXX XXXX" },
+      emailLabel: { ar: "البريد الإلكتروني", en: "Email Address" },
+      emailPlaceholder: { ar: "example@email.com", en: "example@email.com" },
       msgLabel: { ar: "رسالتك", en: "Your Message" },
       msgPlaceholder: { ar: "اشرح لنا ما تحتاجه...", en: "Tell us what you need..." },
       submit: { ar: "إرسال الرسالة", en: "Send Message" },
