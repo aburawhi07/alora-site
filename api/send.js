@@ -50,7 +50,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await resend.emails.send({
       from: "Alora Website <onboarding@resend.dev>",
-      to: ["aloragraphic@gmail.com"],
+      to: [process.env.RECIPIENT_EMAIL || "ahmad.rawhi.abuarrah@gmail.com"],
       subject: `رسالة جديدة من ${name}`,
       html: htmlBody,
     });
