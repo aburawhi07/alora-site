@@ -369,7 +369,7 @@ function ContactForm() {
       </div>
       <div className="contact-form__field">
         <label className="contact-form__label">{t("contact.form.contactInfoLabel")}</label>
-        <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("contact.form.contactInfoPlaceholder")} dir="ltr" className="contact-form__input" />
+        <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("contact.form.contactInfoPlaceholder")} dir={dir} className="contact-form__input" />
       </div>
       <div className="contact-form__field contact-form__field--last">
         <label className="contact-form__label">{t("contact.form.msgLabel")}</label>

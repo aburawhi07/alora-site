@@ -87,7 +87,7 @@ export default function RequestPage() {
             </div>
             <div>
               <label className="request-field-label">{t("request.contactInfoLabel")}</label>
-              <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("request.contactInfoPlaceholder")} dir="ltr" className="request-input" />
+              <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("request.contactInfoPlaceholder")} dir={dir} className="request-input" />
             </div>
           </div>
 
