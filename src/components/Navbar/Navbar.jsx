@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import logoImg from "../../assets/logo.png";
-import T from "../../utils/tokens";
 import { useLang } from "../../utils/LangContext";
 import "./Navbar.css";
 
@@ -38,7 +37,7 @@ export default function Navbar({ page, setPage }) {
   // Reset logoArrived when navigating to home
   useEffect(() => {
     if (page === "home") {
-      setLogoArrived(false);
+      requestAnimationFrame(() => setLogoArrived(false));
     }
   }, [page]);
 
@@ -91,7 +90,7 @@ export default function Navbar({ page, setPage }) {
     const startOpacity = 0.6;
 
     // End position: navbar logo spot
-    const endX = window.innerWidth - 55;
+    const endX = dir === "rtl" ? window.innerWidth - 55 : 55;
     const endY = 36;
     const endScale = 0.28;
     const endOpacity = 1;
@@ -110,12 +109,15 @@ export default function Navbar({ page, setPage }) {
     } else if (progress < 0.95 && logoArrived) {
       setLogoArrived(false);
     }
-  }, [isMobile, logoArrived]);
+  }, [isMobile, logoArrived, dir]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const rafId = requestAnimationFrame(handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, [handleScroll]);
 
   /* Track which section is currently visible */

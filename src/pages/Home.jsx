@@ -69,7 +69,7 @@ function SvcIcon({ type }) {
 const ICON_TYPES = ["design", "print", "sign", "shirt"];
 const ACCENTS = [T.tealDark, T.teal, T.tealDark, T.teal];
 
-function ServiceCard({ s, i, setPage, iconType, accent }) {
+function ServiceCard({ s, i, iconType, accent }) {
   const { t } = useLang();
   return (
     <div
@@ -98,9 +98,9 @@ function ServiceCard({ s, i, setPage, iconType, accent }) {
   );
 }
 
-function Services({ setPage }) {
+function Services() {
   useReveal();
-  const { t, lang, dir } = useLang();
+  const { t, dir } = useLang();
   const serviceItems = t("services.items");
 
   // Map translated items to include iconType and accent
@@ -117,7 +117,7 @@ function Services({ setPage }) {
       <div className="section__inner">
         <SectionHeader tag={t("services.tag")} title={t("services.title")} sub={t("services.sub")} />
         <div className="services-grid">
-          {items.map((s, i) => <ServiceCard key={i} s={s} i={i} setPage={setPage} iconType={s.iconType} accent={s.accent} />)}
+          {items.map((s, i) => <ServiceCard key={i} s={s} i={i} iconType={s.iconType} accent={s.accent} />)}
         </div>
       </div>
     </section>
@@ -390,7 +390,7 @@ function ContactForm() {
 
 function Contact() {
   useReveal();
-  const { t, dir, lang } = useLang();
+  const { t, dir } = useLang();
   const info = [
     {
       icon: (color) => (
@@ -470,12 +470,12 @@ function Contact() {
   );
 }
 
-export default function Home({ setPage }) {
+export default function Home() {
   return (
     <>
-      <Hero setPage={setPage} />
+      <Hero />
       <Marquee />
-      <Services setPage={setPage} />
+      <Services />
       <Portfolio />
       <WhyUs />
       <Process />

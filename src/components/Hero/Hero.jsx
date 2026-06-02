@@ -36,7 +36,7 @@ export function HeroVisual() {
   );
 }
 
-export default function Hero({ setPage }) {
+export default function Hero() {
   useReveal();
   const { t, dir } = useLang();
 
