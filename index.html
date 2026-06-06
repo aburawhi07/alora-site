@@ -3,21 +3,93 @@
 
 <head>
   <meta charset="UTF-8" />
+
+  <!-- ─── Favicon ────────────────────────────────────────── -->
   <link rel="icon" type="image/png" href="/logo_9.png" />
+  <link rel="apple-touch-icon" href="/logo_9.png" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ─── SEO: Bilingual Description ─────────────────────── -->
   <meta name="description"
-    content="ألورا جرافيك — مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. طباعة رقمية، هوية بصرية، لافتات، وطباعة ملابس بأعلى جودة." />
+    content="ALORA Graphic — Professional printing & graphic design in Aqaba, Palestine. Digital printing, brand identity, signage & apparel. ألورا جرافيك — مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين." />
+
+  <!-- ─── Open Graph (WhatsApp / Facebook) ───────────────── -->
   <meta property="og:title" content="ALORA Graphic | ألورا جرافيك" />
-  <meta property="og:description" content="مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين." />
+  <meta property="og:description"
+    content="مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين. طباعة رقمية، هوية بصرية، لافتات، وطباعة ملابس." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/logo_9.png" />
+  <meta property="og:image" content="/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ALORA Graphic — ألورا جرافيك" />
+  <meta property="og:url" content="https://aloragraphic.vercel.app/" />
+  <meta property="og:locale" content="ar_PS" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- ─── Twitter / Telegram Card ────────────────────────── -->
   <meta name="twitter:card" content="summary_large_image" />
-  <title>ALORA Graphic</title>
+  <meta name="twitter:title" content="ALORA Graphic | ألورا جرافيك" />
+  <meta name="twitter:description" content="مطبعة وتصميم جرافيك احترافية في عقابا، فلسطين." />
+  <meta name="twitter:image" content="/og-image.jpg" />
+
+  <!-- ─── hreflang: bilingual ─────────────────────────────── -->
+  <link rel="alternate" hreflang="ar" href="https://aloragraphic.vercel.app/?lang=ar" />
+  <link rel="alternate" hreflang="en" href="https://aloragraphic.vercel.app/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://aloragraphic.vercel.app/" />
+
+  <!-- ─── Canonical ──────────────────────────────────────── -->
+  <link rel="canonical" href="https://aloragraphic.vercel.app/" />
+
+  <title>ALORA Graphic | ألورا جرافيك</title>
+
+  <!-- ─── Preload hero logo for faster LCP ───────────────── -->
+  <link rel="preload" as="image" href="/logo_9.png" />
+
+  <!-- ─── Fonts ───────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
     rel="stylesheet">
+
+  <!-- ─── Schema.org LocalBusiness ───────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "ALORA Graphic | ألورا جرافيك",
+    "description": "Professional printing and graphic design studio in Aqaba, Palestine. Specializing in digital printing, brand identity, signage, and apparel printing.",
+    "url": "https://aloragraphic.vercel.app/",
+    "telephone": "+972-59-965-1585",
+    "email": "aloragraphic@gmail.com",
+    "image": "https://aloragraphic.vercel.app/og-image.jpg",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Aqaba",
+      "addressRegion": "Tubas",
+      "addressCountry": "PS"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 32.3406,
+      "longitude": 35.3197
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=100063596649869",
+      "https://www.instagram.com/alora_graphic"
+    ]
+  }
+  </script>
 </head>
 
 <body>
