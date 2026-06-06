@@ -13,11 +13,18 @@ export default function RequestPage() {
 
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
+  const [validation, setValidation] = useState(false);
+  const allFilled = form.name.trim() && form.contactInfo.trim() && form.details.trim();
 
   const svcs = t("request.services");
   const toggle = (s) => setSelSvcs(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
   const submit = async () => {
-    if (!form.name.trim() || sending) return;
+    if (sending) return;
+    if (!allFilled) {
+      setValidation(true);
+      return;
+    }
+    setValidation(false);
     setSending(true);
     setError(false);
     try {
@@ -66,6 +73,11 @@ export default function RequestPage() {
               {t("request.error")}
             </div>
           )}
+          {validation && !allFilled && (
+            <div className="contact-form__error">
+              {t("request.required")}
+            </div>
+          )}
 
           {/* Service chips */}
           <div style={{ marginBottom: 24 }}>
@@ -82,12 +94,12 @@ export default function RequestPage() {
           {/* Name & Phone */}
           <div className="request-form-grid" style={{ marginBottom: 16 }}>
             <div>
-              <label className="request-field-label">{t("request.nameLabel")}</label>
-              <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("request.namePlaceholder")} className="request-input" />
+              <label className="request-field-label">{t("request.nameLabel")} <span className="contact-form__required-star">*</span></label>
+              <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("request.namePlaceholder")} className={`request-input ${validation && !form.name.trim() ? "contact-form__input--error" : ""}`} />
             </div>
             <div>
-              <label className="request-field-label">{t("request.contactInfoLabel")}</label>
-              <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("request.contactInfoPlaceholder")} dir={dir} className="request-input" />
+              <label className="request-field-label">{t("request.contactInfoLabel")} <span className="contact-form__required-star">*</span></label>
+              <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("request.contactInfoPlaceholder")} dir={dir} className={`request-input ${validation && !form.contactInfo.trim() ? "contact-form__input--error" : ""}`} />
             </div>
           </div>
 
@@ -111,12 +123,12 @@ export default function RequestPage() {
 
           {/* Details */}
           <div style={{ marginBottom: 28 }}>
-            <label className="request-field-label">{t("request.detailsLabel")}</label>
-            <textarea value={form.details} onChange={e => setForm({ ...form, details: e.target.value })} placeholder={t("request.detailsPlaceholder")} className="request-input request-input--textarea" />
+            <label className="request-field-label">{t("request.detailsLabel")} <span className="contact-form__required-star">*</span></label>
+            <textarea value={form.details} onChange={e => setForm({ ...form, details: e.target.value })} placeholder={t("request.detailsPlaceholder")} className={`request-input request-input--textarea ${validation && !form.details.trim() ? "contact-form__input--error" : ""}`} />
           </div>
 
           <div className="request-actions">
-            <button onClick={submit} disabled={sending} className={`request-btn-submit ${sending ? "contact-form__btn-submit--loading" : ""}`}>
+            <button onClick={submit} disabled={sending} className={`request-btn-submit ${sending ? "contact-form__btn-submit--loading" : ""} ${!allFilled ? "contact-form__btn-submit--disabled" : ""}`}>
               {sending ? t("request.sending") : t("request.submit")}
             </button>
             <button className="request-btn-wa">

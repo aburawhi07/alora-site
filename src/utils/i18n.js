@@ -192,6 +192,10 @@ const translations = {
         ar: "جاري الإرسال...",
         en: "Sending...",
       },
+      required: {
+        ar: "يرجى تعبئة جميع الحقول المطلوبة",
+        en: "Please fill in all required fields",
+      },
     },
   },
 
@@ -271,6 +275,10 @@ const translations = {
     sending: {
       ar: "جاري الإرسال...",
       en: "Sending...",
+    },
+    required: {
+      ar: "يرجى تعبئة جميع الحقول المطلوبة (الاسم، البريد/الهاتف، التفاصيل)",
+      en: "Please fill in all required fields (name, contact info, details)",
     },
     infoNote: {
       ar: "يتم مراجعة الطلبات خلال ساعات العمل (9ص – 9م). سنرسل لك تأكيداً وسعراً تفصيلياً عبر واتساب أو الهاتف.",

@@ -329,9 +329,16 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
+  const [validation, setValidation] = useState(false);
   const [form, setForm] = useState({ name: "", contactInfo: "", msg: "" });
+  const allFilled = form.name.trim() && form.contactInfo.trim() && form.msg.trim();
   const submit = async () => {
-    if (!form.name.trim() || sending) return;
+    if (sending) return;
+    if (!allFilled) {
+      setValidation(true);
+      return;
+    }
+    setValidation(false);
     setSending(true);
     setError(false);
     try {
@@ -363,20 +370,25 @@ function ContactForm() {
           {t("contact.form.error")}
         </div>
       )}
+      {validation && !allFilled && (
+        <div className="contact-form__error">
+          {t("contact.form.required")}
+        </div>
+      )}
       <div className="contact-form__field">
-        <label className="contact-form__label">{t("contact.form.nameLabel")}</label>
-        <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("contact.form.namePlaceholder")} className="contact-form__input" dir={dir} />
+        <label className="contact-form__label">{t("contact.form.nameLabel")} <span className="contact-form__required-star">*</span></label>
+        <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder={t("contact.form.namePlaceholder")} className={`contact-form__input ${validation && !form.name.trim() ? "contact-form__input--error" : ""}`} dir={dir} />
       </div>
       <div className="contact-form__field">
-        <label className="contact-form__label">{t("contact.form.contactInfoLabel")}</label>
-        <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("contact.form.contactInfoPlaceholder")} dir={dir} className="contact-form__input" />
+        <label className="contact-form__label">{t("contact.form.contactInfoLabel")} <span className="contact-form__required-star">*</span></label>
+        <input type="text" value={form.contactInfo} onChange={e => setForm({ ...form, contactInfo: e.target.value })} placeholder={t("contact.form.contactInfoPlaceholder")} dir={dir} className={`contact-form__input ${validation && !form.contactInfo.trim() ? "contact-form__input--error" : ""}`} />
       </div>
       <div className="contact-form__field contact-form__field--last">
-        <label className="contact-form__label">{t("contact.form.msgLabel")}</label>
-        <textarea value={form.msg} onChange={e => setForm({ ...form, msg: e.target.value })} placeholder={t("contact.form.msgPlaceholder")} className="contact-form__input contact-form__textarea" dir={dir} />
+        <label className="contact-form__label">{t("contact.form.msgLabel")} <span className="contact-form__required-star">*</span></label>
+        <textarea value={form.msg} onChange={e => setForm({ ...form, msg: e.target.value })} placeholder={t("contact.form.msgPlaceholder")} className={`contact-form__input contact-form__textarea ${validation && !form.msg.trim() ? "contact-form__input--error" : ""}`} dir={dir} />
       </div>
       <div className="contact-form__actions">
-        <button onClick={submit} disabled={sending} className={`contact-form__btn-submit ${sending ? "contact-form__btn-submit--loading" : ""}`}>
+        <button onClick={submit} disabled={sending} className={`contact-form__btn-submit ${sending ? "contact-form__btn-submit--loading" : ""} ${!allFilled ? "contact-form__btn-submit--disabled" : ""}`}>
           {sending ? t("contact.form.sending") : t("contact.form.submit")}
         </button>
         <button onClick={() => window.open("https://wa.me/972599651585", "_blank")} className="contact-form__btn-wa">

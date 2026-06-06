@@ -623,6 +623,19 @@
 .contact-form__btn-submit:disabled {
   pointer-events: none;
 }
+.contact-form__btn-submit--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.contact-form__input--error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+}
+.contact-form__required-star {
+  color: #ef4444;
+  font-weight: 700;
+  margin-inline-start: 2px;
+}
 .contact-form__btn-wa {
   display: flex;
   align-items: center;
