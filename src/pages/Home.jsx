@@ -158,12 +158,18 @@ function Portfolio() {
     });
   }, []);
 
-  // ── Build category filter list from real data ────────────
-  // Always show "All" first, then unique categories from actual images
+  // ── Build category filter list from real Cloudinary folders ─
   const allCatLabel = lang === "ar" ? "الكل" : "All";
-  const uniqueCats = [...new Map(
-    cloudItems.map((item) => [item.folder, item.cat])
-  ).values()];
+
+  // Deduplicate by folder slug — preserves order of first appearance
+  const seenFolders = new Set();
+  const uniqueCats = [];
+  cloudItems.forEach((item) => {
+    if (item.folder && !seenFolders.has(item.folder)) {
+      seenFolders.add(item.folder);
+      uniqueCats.push(item.cat);
+    }
+  });
   const cats = [allCatLabel, ...uniqueCats.map((c) => lang === "ar" ? c.ar : c.en)];
 
   // ── Filter logic ─────────────────────────────────────────
@@ -173,6 +179,9 @@ function Portfolio() {
         const label = lang === "ar" ? item.cat.ar : item.cat.en;
         return label === cats[active];
       });
+
+  // Reset filter to "All" when language changes
+  useEffect(() => { setActive(0); }, [lang]);
 
   // Re-run reveal animation when filter or language changes
   useEffect(() => {

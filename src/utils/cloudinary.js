@@ -35,18 +35,27 @@ const FOLDER_TO_CAT = {
 };
 
 // filename from public_id → human readable title
+// Cloudinary may store the display_name separately, so we prefer it.
 // "alora-portfolio/printing/بانر-اعلاني" → "بانر اعلاني"
-function publicIdToTitle(publicId) {
+function publicIdToTitle(publicId, displayName) {
+  // Prefer Cloudinary's original filename if available
+  if (displayName) {
+    return displayName.replace(/\.[^/.]+$/, ""); // strip extension
+  }
   const parts = publicId.split("/");
   const raw = parts[parts.length - 1];
-  return decodeURIComponent(raw).replace(/[-_]/g, " ");
+  // Remove any Cloudinary version suffix (e.g. "_abc123")
+  const clean = raw.replace(/_[a-z0-9]{6,}$/, "");
+  return decodeURIComponent(clean).replace(/[-_]/g, " ").trim();
 }
 
 // folder slug from public_id
 // "alora-portfolio/vehicle-wraps/img" → "vehicle-wraps"
 function publicIdToFolder(publicId) {
   const parts = publicId.split("/");
-  return parts.length >= 2 ? parts[parts.length - 2] : "";
+  // folder is always second-to-last segment
+  // guard: must have at least 3 parts (root/folder/filename)
+  return parts.length >= 3 ? parts[parts.length - 2] : "";
 }
 
 // Optimized Cloudinary URL — resize to 800px, auto quality & format (WebP)
@@ -72,7 +81,7 @@ export async function fetchPortfolioItems() {
     return resources.map((r) => {
       const folder = publicIdToFolder(r.public_id);
       const cat = FOLDER_TO_CAT[folder] || { ar: folder, en: folder };
-      const title = publicIdToTitle(r.public_id);
+      const title = publicIdToTitle(r.public_id, r.display_name || r.filename);
       return {
         title,
         cat,
