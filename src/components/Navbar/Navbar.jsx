@@ -140,7 +140,7 @@ export default function Navbar({ page, setPage }) {
   }, [page]);
 
   const links = t("navbar.links");
-  const ids = ["home", "services", "portfolio", "why", "contact"];
+  const ids = ["services", "portfolio", "why", "contact"];
 
   const handleNav = (id) => {
     if (id === "home") {
@@ -189,7 +189,7 @@ export default function Navbar({ page, setPage }) {
         <div
           ref={navLogoRef}
           className={`navbar__logo-wrap-base navbar__logo-wrap ${showNavLogo ? "navbar__logo-wrap--visible" : ""}`}
-          onClick={() => setPage("home")}
+          onClick={() => { setPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
         >
           <Logo height={70} />
         </div>

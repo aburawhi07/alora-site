@@ -193,7 +193,7 @@
 /* ─── PORTFOLIO GRID ────────────────────────────────────── */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
 
@@ -264,7 +264,44 @@
   gap: 4px;
 }
 
-/* Portfolio Mocks */
+/* ── View More / View Less Button ──────────────────────── */
+.portfolio-view-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.portfolio-view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  border: 1.5px solid var(--color-teal-dark);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--color-teal-dark);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.16, 1, .3, 1);
+  letter-spacing: 0.3px;
+}
+
+.portfolio-view-more-btn:hover {
+  background: var(--color-teal-dark);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 107, 122, 0.25);
+}
+
+.portfolio-view-more-arrow {
+  transition: transform 0.4s cubic-bezier(.16, 1, .3, 1);
+}
+
+.portfolio-view-more-arrow--up {
+  transform: rotate(180deg);
+}
 .mock-identity {
   display: flex;
   flex-direction: column;

@@ -4,8 +4,8 @@ const translations = {
   // ─── NAVBAR ───────────────────────────────────────────────
   navbar: {
     links: {
-      ar: ["الرئيسية", "خدماتنا", "أعمالنا", "لماذا نحن", "تواصل"],
-      en: ["Home", "Services", "Portfolio", "Why Us", "Contact"],
+      ar: ["خدماتنا", "أعمالنا", "لماذا نحن", "تواصل"],
+      en: ["Services", "Portfolio", "Why Us", "Contact"],
     },
     cta: { ar: "اطلب الآن", en: "Order Now" },
   },
@@ -91,6 +91,8 @@ const translations = {
       en: "We take pride in delivering work that reflects the professionalism and creativity we believe in.",
     },
     viewDetails: { ar: "عرض التفاصيل", en: "View Details" },
+    viewMore: { ar: "عرض المزيد", en: "View More" },
+    viewLess: { ar: "عرض أقل", en: "View Less" },
     filterAll: { ar: "الكل", en: "All" },
     cats: {
       ar: ["الكل", "تصميم", "طباعة", "لافتات", "ملابس"],

@@ -148,7 +148,10 @@ function Portfolio() {
   const [cloudItems, setCloudItems] = useState([]);
   const [loading, setLoading]       = useState(true);
   const [active, setActive]         = useState(0);
+  const [expanded, setExpanded]     = useState(false);
   const gridRef = useRef(null);
+
+  const INITIAL_COUNT = 4;
 
   // Fetch from Cloudinary on mount
   useEffect(() => {
@@ -180,10 +183,17 @@ function Portfolio() {
         return label === cats[active];
       });
 
-  // Reset filter to "All" when language changes
-  useEffect(() => { setActive(0); }, [lang]);
+  // ── Visible items (limited or all) ───────────────────────
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
+  const hasMore = filtered.length > INITIAL_COUNT;
 
-  // Re-run reveal animation when filter or language changes
+  // Reset filter & collapse when language changes
+  useEffect(() => { setActive(0); setExpanded(false); }, [lang]);
+
+  // Collapse when filter changes
+  useEffect(() => { setExpanded(false); }, [active]);
+
+  // Re-run reveal animation when filter, language, or expand state changes
   useEffect(() => {
     if (!gridRef.current) return;
     const els = gridRef.current.querySelectorAll(".reveal");
@@ -193,7 +203,7 @@ function Portfolio() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [active, lang, cloudItems]);
+  }, [active, lang, cloudItems, expanded]);
 
   return (
     <section id="portfolio" className="section" style={{ background: T.white, direction: dir }}>
@@ -219,7 +229,7 @@ function Portfolio() {
         <div ref={gridRef} className="portfolio-grid">
 
           {/* Loading skeletons */}
-          {loading && Array.from({ length: 6 }).map((_, i) => (
+          {loading && Array.from({ length: 4 }).map((_, i) => (
             <PortfolioSkeleton key={i} />
           ))}
 
@@ -231,7 +241,7 @@ function Portfolio() {
           )}
 
           {/* Real images from Cloudinary */}
-          {!loading && filtered.map((p, i) => (
+          {!loading && visible.map((p, i) => (
             <div
               key={p.publicId}
               className="reveal portfolio-card"
@@ -258,6 +268,32 @@ function Portfolio() {
           ))}
 
         </div>
+
+        {/* ── View More / View Less Button ─────────────────────────── */}
+        {!loading && hasMore && (
+          <div className="portfolio-view-more-wrap">
+            <button
+              className="portfolio-view-more-btn"
+              onClick={() => setExpanded((prev) => !prev)}
+            >
+              <span>{expanded ? t("portfolio.viewLess") : t("portfolio.viewMore")}</span>
+              <svg
+                className={`portfolio-view-more-arrow ${expanded ? "portfolio-view-more-arrow--up" : ""}`}
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+          </div>
+        )}
+
       </div>
     </section>
   );
