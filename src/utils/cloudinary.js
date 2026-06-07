@@ -26,6 +26,7 @@ const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const ROOT_FOLDER = "alora-portfolio";
 
 // Folder slug → bilingual category label
+// Keys are LOWERCASE so we can match regardless of Cloudinary casing
 const FOLDER_TO_CAT = {
   "vehicle-wraps": { ar: "لصق سيارات", en: "Vehicle Wraps" },
   "printing":      { ar: "طباعة",       en: "Printing"      },
@@ -49,13 +50,15 @@ function publicIdToTitle(publicId, displayName) {
   return decodeURIComponent(clean).replace(/[-_]/g, " ").trim();
 }
 
-// folder slug from public_id
-// "alora-portfolio/vehicle-wraps/img" → "vehicle-wraps"
-function publicIdToFolder(publicId) {
-  const parts = publicId.split("/");
-  // folder is always second-to-last segment
-  // guard: must have at least 3 parts (root/folder/filename)
-  return parts.length >= 3 ? parts[parts.length - 2] : "";
+// Extract subfolder slug from asset_folder
+// "alora-portfolio/Printing" → "printing"
+// "alora-portfolio/vehicle-wraps" → "vehicle-wraps"
+function assetFolderToSlug(assetFolder) {
+  if (!assetFolder) return "";
+  const parts = assetFolder.split("/");
+  // The subfolder is the last segment after the root folder
+  const sub = parts.length >= 2 ? parts[parts.length - 1] : "";
+  return sub.toLowerCase();
 }
 
 // Optimized Cloudinary URL — resize to 800px, auto quality & format (WebP)
@@ -79,7 +82,8 @@ export async function fetchPortfolioItems() {
     const resources = data.resources || [];
 
     return resources.map((r) => {
-      const folder = publicIdToFolder(r.public_id);
+      // Use asset_folder (e.g. "alora-portfolio/Printing") instead of public_id
+      const folder = assetFolderToSlug(r.asset_folder);
       const cat = FOLDER_TO_CAT[folder] || { ar: folder, en: folder };
       const title = publicIdToTitle(r.public_id, r.display_name || r.filename);
       return {
@@ -95,3 +99,4 @@ export async function fetchPortfolioItems() {
     return [];
   }
 }
+

@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       expression: `folder:${ROOT_FOLDER}/*`,
       sort_by: [{ created_at: "desc" }],   // newest first
       max_results: 100,
-      fields: ["public_id", "secure_url", "folder", "created_at", "format", "display_name", "filename"],
+      fields: ["public_id", "secure_url", "folder", "asset_folder", "created_at", "format", "display_name", "filename"],
     });
 
     // Basic Auth using API key + secret
