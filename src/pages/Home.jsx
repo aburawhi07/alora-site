@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { fetchPortfolioItems } from "../utils/cloudinary";
 import T from "../utils/tokens";
 import useReveal from "../hooks/useReveal";
 import Hero from "../components/Hero/Hero";
@@ -126,83 +127,54 @@ function Services() {
 
 /* ─── PORTFOLIO ──────────────────────────────────────────── */
 
-const PORTFOLIO_BG = [
-  `linear-gradient(135deg,${T.tealPale},#b2dce4)`,
-  `linear-gradient(135deg,${T.yellowPale},#fde68a)`,
-  `linear-gradient(135deg,#e8f4f7,${T.tealPale})`,
-  `linear-gradient(135deg,#f0f4f5,${T.gray100})`,
-  `linear-gradient(135deg,${T.tealDark},#0f4550)`,
-  `linear-gradient(135deg,#fff8d6,#fde68a)`,
-];
-const PORTFOLIO_MOCKS = ["identity", "banner", "bizcard", "sign", "corp", "shirt"];
-
-function PortfolioMock({ type }) {
-  const { t } = useLang();
-  if (type === "identity") return (
-    <div className="mock-identity">
-      <div className="mock-identity__circle">
-        <span className="mock-identity__letter">A</span>
-      </div>
-      <div className="mock-identity__title">ALORA BRAND</div>
-      <div className="mock-identity__colors">
-        {[T.tealDark, T.teal, T.yellow, "#f5f5f0"].map((c, i) => <div key={i} className="mock-identity__color" style={{ background: c }} />)}
+// Skeleton card shown while images are loading
+function PortfolioSkeleton() {
+  return (
+    <div className="portfolio-card portfolio-card--skeleton">
+      <div className="portfolio-card__img-wrap portfolio-card__img-wrap--skeleton" />
+      <div className="portfolio-card__body">
+        <div className="portfolio-card__skeleton-line" />
+        <div className="portfolio-card__skeleton-line portfolio-card__skeleton-line--short" />
       </div>
     </div>
   );
-  if (type === "banner") return (
-    <div className="mock-banner">
-      <div className="mock-banner__title">{t("portfolioMocks.specialOffer")}</div>
-      <div className="mock-banner__discount">{t("portfolioMocks.discount")}</div>
-      <div className="mock-banner__cta">{t("portfolioMocks.contactNow")}</div>
-    </div>
-  );
-  if (type === "bizcard") return (
-    <div className="mock-bizcard">
-      {[{ bg: T.tealDark, nc: T.yellow, tc: "rgba(255,255,255,0.5)" }, { bg: T.white, nc: T.tealDark, tc: T.gray400, border: `1.5px solid ${T.gray200}` }].map((s, i) => (
-        <div key={i} className="mock-bizcard__card" style={{ background: s.bg, border: s.border }}>
-          <div className="mock-bizcard__name" style={{ color: s.nc }}>{t("portfolioMocks.name")}</div>
-          <div className="mock-bizcard__role" style={{ color: s.tc }}>{t("portfolioMocks.role")}</div>
-          <div className="mock-bizcard__divider" style={{ background: s.nc }} />
-          <div className="mock-bizcard__phone" style={{ color: s.tc }}>+970 59 000 0000</div>
-        </div>
-      ))}
-    </div>
-  );
-  if (type === "sign") return (
-    <div className="mock-sign">
-      <div className="mock-sign__title">ALORA Store</div>
-      <div className="mock-sign__hours">{t("portfolioMocks.storeHours")}</div>
-    </div>
-  );
-  if (type === "corp") return (
-    <div className="mock-corp">
-      <div className="mock-corp__title">ALORA</div>
-      <div className="mock-corp__sub">GRAPHIC</div>
-    </div>
-  );
-  if (type === "shirt") return (
-    <div className="mock-shirt">
-      <div className="mock-shirt__icon">👕</div>
-      <div className="mock-shirt__tag">{t("portfolioMocks.digitalPrint")}</div>
-    </div>
-  );
-  return null;
 }
 
 function Portfolio() {
   useReveal();
   const { t, lang, dir } = useLang();
-  const cats = t("portfolio.cats");
-  const portfolioItems = t("portfolio.items");
-  const [active, setActive] = useState(0); // track by index for language safety
-  const filtered = active === 0 ? portfolioItems : portfolioItems.filter((_, i) => {
-    // Map original items by their category matching the selected filter
-    const item = portfolioItems[i];
-    return item.cat === cats[active];
-  });
+
+  // ── Cloudinary data ──────────────────────────────────────
+  const [cloudItems, setCloudItems] = useState([]);
+  const [loading, setLoading]       = useState(true);
+  const [active, setActive]         = useState(0);
   const gridRef = useRef(null);
 
-  // Re-observe .reveal elements when filter changes
+  // Fetch from Cloudinary on mount
+  useEffect(() => {
+    fetchPortfolioItems().then((items) => {
+      setCloudItems(items);
+      setLoading(false);
+    });
+  }, []);
+
+  // ── Build category filter list from real data ────────────
+  // Always show "All" first, then unique categories from actual images
+  const allCatLabel = lang === "ar" ? "الكل" : "All";
+  const uniqueCats = [...new Map(
+    cloudItems.map((item) => [item.folder, item.cat])
+  ).values()];
+  const cats = [allCatLabel, ...uniqueCats.map((c) => lang === "ar" ? c.ar : c.en)];
+
+  // ── Filter logic ─────────────────────────────────────────
+  const filtered = active === 0
+    ? cloudItems
+    : cloudItems.filter((item) => {
+        const label = lang === "ar" ? item.cat.ar : item.cat.en;
+        return label === cats[active];
+      });
+
+  // Re-run reveal animation when filter or language changes
   useEffect(() => {
     if (!gridRef.current) return;
     const els = gridRef.current.querySelectorAll(".reveal");
@@ -212,40 +184,70 @@ function Portfolio() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [active, lang]);
+  }, [active, lang, cloudItems]);
 
   return (
     <section id="portfolio" className="section" style={{ background: T.white, direction: dir }}>
       <div className="section__inner">
         <SectionHeader tag={t("portfolio.tag")} title={t("portfolio.title")} sub={t("portfolio.sub")} />
-        {/* Filter */}
-        <div className="portfolio-filters">
-          {cats.map((c, idx) => (
-            <button key={idx} onClick={() => setActive(idx)} className={`portfolio-filter-btn ${active === idx ? "portfolio-filter-btn--active" : ""}`}>
-              {c}
-            </button>
-          ))}
-        </div>
-        {/* Grid */}
+
+        {/* ── Category Filters (built from real Cloudinary folders) ── */}
+        {!loading && cloudItems.length > 0 && (
+          <div className="portfolio-filters">
+            {cats.map((c, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActive(idx)}
+                className={`portfolio-filter-btn ${active === idx ? "portfolio-filter-btn--active" : ""}`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* ── Grid ─────────────────────────────────────────────────── */}
         <div ref={gridRef} className="portfolio-grid">
-          {filtered.map((p, i) => {
-            // Find original index for bg/mock
-            const origIdx = portfolioItems.indexOf(p);
-            return (
-              <div key={p.title + i} className="reveal portfolio-card" style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="portfolio-card__img-wrap" style={{ '--card-bg': PORTFOLIO_BG[origIdx] || PORTFOLIO_BG[0] }}>
-                  <PortfolioMock type={PORTFOLIO_MOCKS[origIdx] || "identity"} />
-                  <div className="portfolio-card__badge">{p.cat}</div>
-                </div>
-                <div className="portfolio-card__body">
-                  <div className="portfolio-card__title">{p.title}</div>
-                  <div className="portfolio-card__cta">
-                    {t("portfolio.viewDetails")} <span>←</span>
-                  </div>
+
+          {/* Loading skeletons */}
+          {loading && Array.from({ length: 6 }).map((_, i) => (
+            <PortfolioSkeleton key={i} />
+          ))}
+
+          {/* Empty state */}
+          {!loading && cloudItems.length === 0 && (
+            <div className="portfolio-empty">
+              <p>{lang === "ar" ? "لا توجد أعمال حتى الآن" : "No projects yet"}</p>
+            </div>
+          )}
+
+          {/* Real images from Cloudinary */}
+          {!loading && filtered.map((p, i) => (
+            <div
+              key={p.publicId}
+              className="reveal portfolio-card"
+              style={{ animationDelay: `${i * 0.08}s` }}
+            >
+              <div className="portfolio-card__img-wrap">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+                <div className="portfolio-card__badge">
+                  {lang === "ar" ? p.cat.ar : p.cat.en}
                 </div>
               </div>
-            );
-          })}
+              <div className="portfolio-card__body">
+                <div className="portfolio-card__title">{p.title}</div>
+                <div className="portfolio-card__cta">
+                  {t("portfolio.viewDetails")} <span>←</span>
+                </div>
+              </div>
+            </div>
+          ))}
+
         </div>
       </div>
     </section>

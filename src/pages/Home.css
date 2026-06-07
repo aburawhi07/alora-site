@@ -837,3 +837,37 @@ html[lang="en"] .contact-info-item--clickable:hover {
     padding: 48px 16px;
   }
 }
+/* ─── PORTFOLIO SKELETON LOADING ────────────────────────── */
+.portfolio-card--skeleton {
+  pointer-events: none;
+}
+.portfolio-card__img-wrap--skeleton {
+  background: linear-gradient(90deg, #e8edf0 25%, #d0d8dc 50%, #e8edf0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+  height: 220px;
+}
+.portfolio-card__skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e8edf0 25%, #d0d8dc 50%, #e8edf0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+  margin-bottom: 10px;
+}
+.portfolio-card__skeleton-line--short {
+  width: 55%;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── PORTFOLIO EMPTY STATE ─────────────────────────────── */
+.portfolio-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-400, #9ca3af);
+  font-size: 1rem;
+}

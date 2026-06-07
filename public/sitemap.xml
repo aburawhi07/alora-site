@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://aloragraphic.vercel.app/</loc>
+    <loc>https://yourdomain.com/</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://aloragraphic.vercel.app/?lang=ar"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://aloragraphic.vercel.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://yourdomain.com/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yourdomain.com/?lang=en"/>
   </url>
 </urlset>
