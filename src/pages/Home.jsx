@@ -149,6 +149,7 @@ function Portfolio() {
   const [loading, setLoading]       = useState(true);
   const [active, setActive]         = useState(0);
   const [expanded, setExpanded]     = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const gridRef = useRef(null);
 
   const INITIAL_COUNT = 4;
@@ -246,6 +247,7 @@ function Portfolio() {
               key={p.publicId}
               className="reveal portfolio-card"
               style={{ animationDelay: `${i * 0.08}s` }}
+              onClick={() => setSelectedImage(p)}
             >
               <div className="portfolio-card__img-wrap">
                 <img
@@ -291,6 +293,17 @@ function Portfolio() {
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </button>
+          </div>
+        )}
+
+        {/* ── Image Modal ─────────────────────────────────────────────────── */}
+        {selectedImage && (
+          <div className="portfolio-modal" onClick={() => setSelectedImage(null)}>
+            <div className="portfolio-modal__content" onClick={e => e.stopPropagation()}>
+              <button className="portfolio-modal__close" onClick={() => setSelectedImage(null)}>✕</button>
+              <img src={selectedImage.image} alt={selectedImage.title} className="portfolio-modal__img" />
+              <div className="portfolio-modal__caption">{selectedImage.title}</div>
+            </div>
           </div>
         )}
 
