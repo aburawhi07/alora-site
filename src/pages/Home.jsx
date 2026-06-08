@@ -150,6 +150,7 @@ function Portfolio() {
   const [active, setActive]         = useState(0);
   const [expanded, setExpanded]     = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isZoomed, setIsZoomed]           = useState(false);
   const gridRef = useRef(null);
 
   const INITIAL_COUNT = 4;
@@ -252,7 +253,7 @@ function Portfolio() {
               <div className="portfolio-card__img-wrap">
                 <img
                   src={p.image}
-                  alt={p.title}
+                  alt={lang === "ar" ? p.title.ar : p.title.en}
                   loading="lazy"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 />
@@ -261,7 +262,7 @@ function Portfolio() {
                 </div>
               </div>
               <div className="portfolio-card__body">
-                <div className="portfolio-card__title">{p.title}</div>
+                <div className="portfolio-card__title">{lang === "ar" ? p.title.ar : p.title.en}</div>
                 <div className="portfolio-card__cta">
                   {t("portfolio.viewDetails")} <span>←</span>
                 </div>
@@ -298,11 +299,47 @@ function Portfolio() {
 
         {/* ── Image Modal ─────────────────────────────────────────────────── */}
         {selectedImage && (
-          <div className="portfolio-modal" onClick={() => setSelectedImage(null)}>
-            <div className="portfolio-modal__content" onClick={e => e.stopPropagation()}>
-              <button className="portfolio-modal__close" onClick={() => setSelectedImage(null)}>✕</button>
-              <img src={selectedImage.image} alt={selectedImage.title} className="portfolio-modal__img" />
-              <div className="portfolio-modal__caption">{selectedImage.title}</div>
+          <div className="portfolio-modal" onClick={() => { setSelectedImage(null); setIsZoomed(false); }}>
+            <div className={`portfolio-modal__content ${isZoomed ? "portfolio-modal__content--zoomed" : ""}`} onClick={e => e.stopPropagation()}>
+              <button className="portfolio-modal__close" onClick={() => { setSelectedImage(null); setIsZoomed(false); }}>✕</button>
+              
+              {/* Prev Button */}
+              <button 
+                className="portfolio-modal__nav portfolio-modal__nav--prev" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsZoomed(false);
+                  const idx = visible.findIndex(p => p.publicId === selectedImage.publicId);
+                  setSelectedImage(visible[(idx - 1 + visible.length) % visible.length]);
+                }}
+              >
+                ❮
+              </button>
+
+              <img 
+                src={selectedImage.image} 
+                alt={lang === "ar" ? selectedImage.title.ar : selectedImage.title.en} 
+                className={`portfolio-modal__img ${isZoomed ? "portfolio-modal__img--zoomed" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsZoomed(!isZoomed);
+                }}
+              />
+
+              {/* Next Button */}
+              <button 
+                className="portfolio-modal__nav portfolio-modal__nav--next" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsZoomed(false);
+                  const idx = visible.findIndex(p => p.publicId === selectedImage.publicId);
+                  setSelectedImage(visible[(idx + 1) % visible.length]);
+                }}
+              >
+                ❯
+              </button>
+
+              {!isZoomed && <div className="portfolio-modal__caption">{lang === "ar" ? selectedImage.title.ar : selectedImage.title.en}</div>}
             </div>
           </div>
         )}

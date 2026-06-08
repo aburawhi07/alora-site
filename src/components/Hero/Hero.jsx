@@ -58,9 +58,6 @@ export default function Hero() {
           <h1 className="hero__title">
             {t("hero.h1_1")}{" "}
             <span className="hero__title-highlight">{t("hero.h1_2")}</span>
-            <br />
-            <span className="hero__title-highlight">{t("hero.h1_3")}</span>
-            {" "}{t("hero.h1_4")}
           </h1>
 
           <p className="hero__desc">
