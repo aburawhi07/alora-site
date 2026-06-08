@@ -12,8 +12,8 @@ const translations = {
 
   // ─── HERO ─────────────────────────────────────────────────
   hero: {
-    h1_1: { ar: "نجعلها", en: "We make it" },
-    h1_2: { ar: "أفضل", en: "better" },
+    h1_1: { ar: "We make it", en: "We make it" },
+    h1_2: { ar: "better", en: "better" },
     desc: {
       ar: "من الهوية البصرية إلى الطباعة الاحترافية — نجمع بين الإبداع والتقنية لنقدم منتجاً يستحق الفخر.",
       en: "From brand identity to professional printing — we combine creativity and technology to deliver products you'll be proud of.",
