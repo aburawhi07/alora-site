@@ -27,7 +27,7 @@ export function SectionHeader({ tag, title, sub, dark = false, noMargin = false 
 function Marquee() {
   const { t } = useLang();
   const items = t("marquee.items");
-  const repeated = [...items, ...items];
+  const repeated = [...items, ...items, ...items, ...items];
   return (
     <div className="marquee-wrap">
       <div className="marquee-track">

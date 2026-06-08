@@ -37,9 +37,9 @@ body {
 }
 
 /* ─── ENGLISH FONT OVERRIDE ─────────────────────────────── */
-html[lang="en"],
-html[lang="en"] * {
-  font-family: 'Poppins', sans-serif !important;
+html[lang="en"] {
+  --font-body: 'Poppins', sans-serif;
+  --font-display: 'Poppins', sans-serif;
 }
 
 html[lang="en"] body {

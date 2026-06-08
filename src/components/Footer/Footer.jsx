@@ -122,7 +122,6 @@ export default function Footer({ setPage }) {
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={() => setPage("home")}>
               <Logo height={120} dark />
             </div>
-            <p className="footer__logo-desc" style={{ fontSize: 13, lineHeight: 1.8, maxWidth: 240 }}>{t("footer.logoDesc")}</p>
           </div>
         </div>
         <div className="footer__bottom">

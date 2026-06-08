@@ -9,22 +9,9 @@ export function HeroVisual() {
   const { t } = useLang();
   return (
     <div className="hero__visual hero-animate" style={{ animationDelay: "0.15s" }}>
-      {/* Main big card */}
-      <div className="hero__card">
-        <div className="hero__card-dots">
-          {[T.yellow, "rgba(255,255,255,0.3)", "rgba(255,255,255,0.3)"].map((c, i) => <div key={i} className="hero__card-dot" style={{ background: c }} />)}
-        </div>
-        <div className="hero__card-label">{t("hero.cardLabel")}</div>
-        <div className="hero__card-name">{t("hero.cardName")}</div>
-        <div className="hero__card-role">{t("hero.cardRole")}</div>
-        <div className="hero__card-divider" />
-        <div className="hero__card-phone">+972 59 965 1585</div>
-      </div>
+      {/* Card removed per user request */}
 
-      {/* Badge */}
-      <div className="hero__badge">
-        {t("hero.badge")}
-      </div>
+      {/* Badge removed per user request */}
 
       {/* Color palette swatch */}
       <div className="hero__palette">
