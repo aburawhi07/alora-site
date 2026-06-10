@@ -100,6 +100,4 @@ This project is open source. See the LICENSE file for details.
 - [Live Application](https://aloragraphic.vercel.app)
 - [GitHub Repository](https://github.com/aburawhi07/aloragraphic)
 
----
 
-Made with ❤️ by Aburawhi07
